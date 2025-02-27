@@ -96,10 +96,10 @@ export default function ForgotPasswordForm() {
                   <div className="mt-2 font-medium text-gray-900">{email}</div>
                 </div>
 
-                <div className="bg-blue-50 p-4 rounded-lg">
+                <div className="bg-green-50 p-4 rounded-lg">
                   <div className="flex items-start space-x-3">
-                    <Mail className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <div className="text-sm text-blue-800">
+                    <Mail className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-green-800">
                       <p>
                         The email might take a few minutes to arrive. Don't
                         forget to check your spam folder!
@@ -160,7 +160,7 @@ export default function ForgotPasswordForm() {
                   Remember password ?{" "}
                   <Link
                     href="/login"
-                    className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    className="font-semibold leading-6 text-green-600 hover:text-green-500"
                   >
                     Login
                   </Link>

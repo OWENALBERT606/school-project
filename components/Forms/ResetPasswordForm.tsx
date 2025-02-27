@@ -105,7 +105,7 @@ export default function ResetPasswordForm() {
               Already Registered? {""}
               <Link
                 href="/login"
-                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                className="font-semibold leading-6 text-green-600 hover:text-green-500"
               >
                 Login
               </Link>
