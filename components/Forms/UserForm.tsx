@@ -102,6 +102,7 @@ export default function UserForm({
         setLoading(false);
         // Toast
         toast.success("Successfully Created!");
+        router.push("/dashboard/users");
         //reset
         reset();
       }

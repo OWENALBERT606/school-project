@@ -6,6 +6,13 @@ export type CategoryProps = {
   imageUrl: string;
   description: string;
 };
+export type SubCategoryProps = {
+  title: string;
+  slug: string;
+  imageUrl: string;
+  description: string;
+  categoryId:string
+};
 export type SavingProps = {
   amount: number;
   month: string;

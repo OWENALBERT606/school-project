@@ -105,13 +105,13 @@ export const permissions: ModulePermissions[] = [
     },
   },
   {
-    display: "Products",
-    name: "products",
+    display: "Sub Categories",
+    name: "subcategories",
     permissions: {
-      create: "products.create",
-      read: "products.read",
-      update: "products.update",
-      delete: "products.delete",
+      create: "subcategories.create",
+      read: "subcategories.read",
+      update: "subcategories.update",
+      delete: "subcategories.delete",
     },
   },
   {

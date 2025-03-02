@@ -247,13 +247,16 @@ model User {
   emailVerified DateTime?
   image         String?
   jobTitle      String?
+  questions     Question[]
+  answers       Answer[]
   roles         Role[]    @relation("UserRoles") // Updated to support multiple roles
   // role          UserRole  @default(USER)
   password      String?
   status        Boolean   @default(true)
   accounts      Account[]
+  categories    Category[]
+  preferences   Preference[]
   sessions      Session[]
-  savings       Saving[]
   blogs         Blog[]
   isVerfied     Boolean   @default(false)
   token         String?
@@ -267,19 +270,37 @@ model Category {
   title       String
   slug        String    @unique
   imageUrl    String?
+  questions   Question[]
+    preferences   Preference[]
+  users        User[]
+  subcategories SubCategory[]
   description String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
 }
-
-model Saving {
+model SubCategory {
   id          String    @id @default(cuid())
-  amount      Int
-  month       String
-  name        String
-  userId      String
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  paymentDate DateTime  @default(now())
+  title       String
+  slug        String    @unique
+  imageUrl    String?
+  questions   Question[]
+  preferences   Preference[]
+  // users        User[]
+  description String?
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+}
+model Preference {
+  id          String    @id @default(cuid())
+  title       String
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String 
+  category   Category   @relation(fields: [categoryId], references: [id])
+  categoryId     String 
+  subcategory   SubCategory   @relation(fields: [subcategoryId], references: [id])
+  subcategoryId     String  
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
 }
@@ -313,4 +334,33 @@ model BlogCategory {
   blogs     Blog[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Question {  
+  id         String       @id @default(cuid())
+  title      String
+  courseUnit String
+  content    String
+  stars      Float @default(0)
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String 
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId    String
+  subcategory   SubCategory @relation(fields: [subcategoryId], references: [id])
+  subcategoryId    String
+  answers   Answer[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime? @updatedAt
+}
+model Answer {
+  id            String       @id @default(cuid())
+  content    String
+  question   Question    @relation(fields: [questionId], references: [id])
+  questionId   String 
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String 
+  upVotes    Int @default(0)
+  downVotes  Int @default(0)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime? @updatedAt
 }

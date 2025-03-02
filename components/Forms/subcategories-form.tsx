@@ -1,12 +1,9 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 
 import { useRouter } from "next/navigation";
@@ -16,13 +13,15 @@ import { useForm } from "react-hook-form";
 import { generateSlug } from "@/lib/generateSlug";
 import toast from "react-hot-toast";
 import { Category } from "@prisma/client";
-import { CategoryProps } from "@/types/types";
+import { CategoryProps, SubCategoryProps } from "@/types/types";
 import FormHeader from "./FormHeader";
 import TextInput from "../FormInputs/TextInput";
 import TextArea from "../FormInputs/TextAreaInput";
 import ImageInput from "../FormInputs/ImageInput";
 import FormFooter from "./FormFooter";
 import { createCategory, updateCategoryById } from "@/actions/categories";
+import FormSelectInput from "../FormInputs/FormSelectInput";
+import { createSubCategory, updateSubCategoryById } from "@/actions/subcategories";
 
 export type SelectOptionProps = {
   label: string;
@@ -31,17 +30,19 @@ export type SelectOptionProps = {
 type CategoryFormProps = {
   editingId?: string | undefined;
   initialData?: Category | undefined | null;
+  categories?: any | undefined | null;
 };
-export default function CategoryForm({
+export default function SubCategoryForm({
   editingId,
   initialData,
+  categories
 }: CategoryFormProps) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<CategoryProps>({
+  } = useForm<SubCategoryProps>({
     defaultValues: {
       title: initialData?.title,
       description: initialData?.description || "",
@@ -52,27 +53,31 @@ export default function CategoryForm({
   const [loading, setLoading] = useState(false);
   const initialImage = initialData?.imageUrl || "/placeholder.svg";
   const [imageUrl, setImageUrl] = useState(initialImage);
+  const [selectedCategory,setSelectedCategory]=useState<any>(categories[0]);
+
 
   console.log(imageUrl);
 
-  async function saveCategory(data: CategoryProps) {
+  async function saveSubCategory(data: SubCategoryProps) {
     try {
       setLoading(true);
       data.slug = generateSlug(data.title);
       data.imageUrl = imageUrl;
+      data.categoryId=selectedCategory.value
+      console.log(data)
 
       if (editingId) {
-        await updateCategoryById(editingId, data);
+        await updateSubCategoryById(editingId, data);
         setLoading(false);
         // Toast
         toast.success("Updated Successfully!");
         //reset
         reset();
         //route
-        router.push("/dashboard/categories");
+        router.push("/dashboard/subcategories");
         setImageUrl("/placeholder.svg");
       } else {
-        await createCategory(data);
+        await createSubCategory(data);
         setLoading(false);
         // Toast
         toast.success("Successfully Created!");
@@ -80,7 +85,7 @@ export default function CategoryForm({
         reset();
         setImageUrl("/placeholder.svg");
         //route
-        router.push("/dashboard/categories");
+        router.push("/dashboard/subcategories");
       }
     } catch (error) {
       setLoading(false);
@@ -96,14 +101,13 @@ export default function CategoryForm({
   // console.log(error);
   // }
   // }
-  console.log(status);
 
   return (
-    <form className="" onSubmit={handleSubmit(saveCategory)}>
+    <form className="" onSubmit={handleSubmit(saveSubCategory)}>
       <FormHeader
-        href="/categories"
+        href="/subcategories"
         parent=""
-        title="Category"
+        title="Sub Category"
         editingId={editingId}
         loading={loading}
       />
@@ -123,9 +127,17 @@ export default function CategoryForm({
                   <TextInput
                     register={register}
                     errors={errors}
-                    label="Category Title"
+                    label="Sub Category Title"
                     name="title"
                   />
+                  <FormSelectInput
+                label="Category"
+                options={categories}
+                option={selectedCategory}
+                setOption={setSelectedCategory}
+                toolTipText="Add New Category"
+                href="/dashboard/categories/new"
+              />
                 </div>
                 <div className="grid gap-3">
                   <TextArea
@@ -142,19 +154,19 @@ export default function CategoryForm({
         <div className="lg:col-span-4 col-span-full ">
           <div className="grid auto-rows-max items-start gap-4 ">
             <ImageInput
-              title="Category Image"
+              title="Sub Category Image"
               imageUrl={imageUrl}
               setImageUrl={setImageUrl}
-              endpoint="categoryImage"
+              endpoint="subcategoryImage"
             />
           </div>
         </div>
       </div>
       <FormFooter
-        href="/categories"
+        href="/subcategories"
         editingId={editingId}
         loading={loading}
-        title="Category"
+        title="Sub Category"
         parent=""
       />
     </form>
