@@ -23,8 +23,8 @@ import {
 import { MoreHorizontal, Pencil, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import { deleteSaving } from "@/actions/savings";
 import { deleteUser } from "@/actions/users";
+import { deleteSubCategory } from "@/actions/subcategories";
 
 type ActionColumnProps = {
   row: any;
@@ -42,8 +42,8 @@ export default function ActionColumn({
   const isActive = row.isActive;
   async function handleDelete() {
     try {
-      if (model === "saving") {
-        const res = await deleteSaving(id);
+      if (model === "subcategory") {
+        const res = await deleteSubCategory(id);
         if (res?.ok) {
           window.location.reload();
         }
