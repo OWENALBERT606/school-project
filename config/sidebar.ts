@@ -6,6 +6,7 @@ import {
   Book,
   Cable,
   CircleDollarSign,
+  FileQuestionIcon,
   FolderTree,
   Globe,
   Home,
@@ -83,6 +84,25 @@ export const sidebarLinks: ISidebarLink[] = [
         title: "Sub Categories",
         href: "/dashboard/subcategories",
         permission: "subcategories.read",
+      },
+    ],
+  },
+  {
+    title: "Question answer",
+    icon: FileQuestionIcon,
+    dropdown: true,
+    href: "/dashboard/questions",
+    permission: "questions.read",
+    dropdownMenu: [
+      {
+        title: "Question platform",
+        href: "/dashboard/questions",
+        permission: "questions.read",
+      },
+      {
+        title: "Questions",
+        href: "/dashboard/questions",
+        permission: "questions.read",
       },
     ],
   },

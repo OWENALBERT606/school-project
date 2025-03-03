@@ -339,9 +339,8 @@ model BlogCategory {
 model Question {  
   id         String       @id @default(cuid())
   title      String
-  courseUnit String
   content    String
-  stars      Float @default(0)
+  stars      Int @default(0)
   user       User      @relation(fields: [userId], references: [id])
   userId     String 
   category   Category @relation(fields: [categoryId], references: [id])

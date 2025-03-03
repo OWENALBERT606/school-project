@@ -13,6 +13,21 @@ export type SubCategoryProps = {
   description: string;
   categoryId:string
 };
+export type QuestionProps = {
+title:  string;
+content:string;
+stars?:number;
+userId:string;
+categoryId:string;
+subcategoryId:string
+};
+export type AnswerProps = {
+content:string;
+questionId:any;
+userId:string
+upVotes:any;
+downVotes:any
+};
 export type SavingProps = {
   amount: number;
   month: string;

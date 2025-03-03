@@ -40,7 +40,7 @@ export default function DashboardOverview() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f8faf5]">
+    <div className="flex min-h-screen flex-col bg-white">
     
       <div className="flex flex-1">
        
