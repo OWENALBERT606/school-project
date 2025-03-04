@@ -32,44 +32,38 @@ export default function QuestionList({ questions,answers}:{questions:any,answers
           <QuestionSheet/>
        
       </div>
-      <ul className="space-y-4">
+      <ul className="space-y-4 overflow-y-scroll max-h-[800px]">
         {questions.map((question:any,i:any) => (
           <li key={question.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
             <div className="flex items-start space-x-4">
               
               <div className="flex-grow">
-                <h3 className="text-xl font-semibold text-green-600 dark:text-green-400 mb-2">
+                <h3 className="text-xl font-semibold text-green-900 dark:text-green-400 mb-2">
                   <Link href={`/qa/${question.id}`} className="hover:underline">{question.title}</Link>
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">{question.content}</p>
                 <div className="space-y-4">
                   <div className="md:flex items-center justify-between">
                     <div className="flex flex-wrap items-center space-x-2">
-                      <Avatar className="h-8 w-8">
+                      <Avatar className="h-8 w-8 bg-black">
                         <AvatarImage src={question.user.image} alt={question.user.name} />
                       </Avatar>
                       <div className="text-sm sm:flex">
-                        <span className="text-gray-600 dark:text-gray-400">Posted by </span>
-                        <a href="#" className="font-medium text-green-600 dark:text-green-400 hover:underline">
+                        <span className="text-black dark:text-gray-400">Posted by </span>
+                        <a href="#" className="font-medium mr-3 ml-5 text-green-600 dark:text-green-400 hover:underline">
                           {question.user.name}
                         </a>
                       </div>
-                      <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                        <Clock className="w-4 h-4 mr-1" />
+                      <div className="flex items-center text-sm text-black dark:text-gray-400">
+                        <Clock className="w-4 h-4 mr-1" /> <span className='ml-2 mr-2'>Date Posted: </span>
                         {formatDate(question.createdAt)}
                       </div>
                     </div>
-                    <span className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                      {/* {question.course.title} */}
-                    </span>
-                    <span className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                      {/* {question.courseUnit} */}
-                    </span>
                   </div>
                   <div className="flex items-center justify-end space-x-4 text-sm text-gray-500 dark:text-gray-400">
 
                    <div>
-                   <span className="flex items-center">
+                   <span className="flex items-center text-green-900">
                       <LeafyGreen size={16} className="mr-1" />
                       {question.category.title} answers
                     </span>
@@ -96,9 +90,6 @@ export default function QuestionList({ questions,answers}:{questions:any,answers
             </div>
           </li>
         ))}
-        <li>
-          questions one
-        </li>
       </ul>
     </div>
   )
