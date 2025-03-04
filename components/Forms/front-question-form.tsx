@@ -85,7 +85,7 @@ export default function FrontQuestionForm({
         toast.success("Successfully Posted Question!");
         //reset
         reset();
-        router.push("/qa");
+        window.location.reload(); // Reload the page after posting
       }
     } catch (error) {
       setLoading(false);
