@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
 import { QuestionSheet } from './QuestionSheet'
 import { CreateQuestionPopOver } from './question-popup'
+import { QuestionAlertForm } from '../Forms/question-alert-form'
 // import { CreateQuestionPopOver } from './question-popup'
 // import { QuestionSheet } from './QuestionSheet'
 
@@ -29,7 +30,8 @@ export default function QuestionList({ questions,answers}:{questions:any,answers
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Top Questions</h2>
     
           {/* <CreateQuestionPopOver/> */}
-          <QuestionSheet/>
+          {/* <QuestionSheet/> */}
+          <QuestionAlertForm/>
        
       </div>
       <ul className="space-y-4 overflow-y-scroll max-h-[800px]">
@@ -58,9 +60,13 @@ export default function QuestionList({ questions,answers}:{questions:any,answers
                         <Clock className="w-4 h-4 mr-1" /> <span className='ml-2 mr-2'>Date Posted: </span>
                         {formatDate(question.createdAt)}
                       </div>
+                      <span className="flex items-center">
+                      <Star size={16} className="mr-1" /> 
+                      {question.stars} stars
+                    </span>
                     </div>
                   </div>
-                  <div className="flex items-center justify-end space-x-4 text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center  flex-wrap justify-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
 
                    <div>
                    <span className="flex items-center text-green-900">
@@ -80,10 +86,7 @@ export default function QuestionList({ questions,answers}:{questions:any,answers
                       {question.answers.length} answers
                     </span>
                    </Link>
-                    <span className="flex items-center">
-                      <Star size={16} className="mr-1" /> 
-                      {question.stars} stars
-                    </span>
+                   
                   </div>
                 </div>
               </div>
