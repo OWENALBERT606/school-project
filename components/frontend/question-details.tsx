@@ -19,8 +19,9 @@ import { useForm } from 'react-hook-form'
 // import { incrementUpVotes } from '@/lib/increament'
 import CreateAnswerForm from './CreateAnswerForm'
 import RelatedQuestions from './related-questions'
+// import RelatedQuestions from './related-questions'
 
-export default function QuestionDetail({question,answers,session}:{question:any,answers:any,session:any}) {
+export default function QuestionDetail({question,relatedQuestion,answers,session}:{question:any,relatedQuestion:any,answers:any,session:any}) {
  
   const [sortBy, setSortBy] = useState('votes');
 

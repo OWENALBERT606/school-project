@@ -20,6 +20,10 @@ export default async function Page({params}: {params: Promise<{ id: string }>}):
     const question: any= await getQuestionById(id);
     const questions: QuestionProps[] = (await getAllQuestions()) || [];
       const answers: AnswerProps[] = (await getAllAnswers()) || [];
+
+
+      const relatedQuestions = questions.filter(
+  (q) => q.categoryId === question?.category?.id);
         const session = await getServerSession(authOptions);
       
   
@@ -49,6 +53,7 @@ console.log(filteredAnswers);
           question={question}
           answers={filteredAnswers}
           session={session}
+          relatedQuestion={relatedQuestions}
         />
       </div>
     );
