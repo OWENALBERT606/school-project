@@ -56,7 +56,14 @@ export async function getQuestionById(id: string) {
     const question = await db.question.findUnique({
       where: {
         id,
-      }});
+      },
+    include:{
+      user:true,
+      category:true,
+      subcategory:true,
+      answers:true
+    }
+    });
     return question;
   } catch (error) {
     console.log(error);

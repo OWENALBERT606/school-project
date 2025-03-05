@@ -34,7 +34,7 @@ type QuestionFormProps = {
   subcategories?: any | undefined | null;
   session?: any | undefined | null;
 };
-export default function QuestionForm({
+export default function AnswerForm({
   editingId,
   initialData,
   categories,

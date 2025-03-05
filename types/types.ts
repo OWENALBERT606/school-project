@@ -25,8 +25,8 @@ export type AnswerProps = {
 content:string;
 questionId:any;
 userId:string
-upVotes:any;
-downVotes:any
+upVotes?:any;
+downVotes?:any
 };
 export type SavingProps = {
   amount: number;

@@ -11,6 +11,8 @@ export async function createAnswer(data: AnswerProps) {
     });
     // console.log(newCategory);
     revalidatePath("/dashboard/answers");
+    revalidatePath(`/qa/${data.questionId}`);
+
     return newAnswer;
   } catch (error) {
     console.log(error);

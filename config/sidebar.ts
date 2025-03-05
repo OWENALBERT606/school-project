@@ -95,14 +95,14 @@ export const sidebarLinks: ISidebarLink[] = [
     permission: "questions.read",
     dropdownMenu: [
       {
-        title: "Question platform",
+        title: "Questions",
         href: "/dashboard/questions",
         permission: "questions.read",
       },
       {
-        title: "Questions",
-        href: "/dashboard/questions",
-        permission: "questions.read",
+        title: "Answers",
+        href: "/dashboard/answers",
+        permission: "answers.read",
       },
     ],
   },
