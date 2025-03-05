@@ -44,12 +44,11 @@ console.log(filteredAnswers);
     // );
 
     return (
-      <div>
+      <div className='mt-4'>
         <QuestionDetail 
           question={question}
           answers={filteredAnswers}
           session={session}
-          // relatedQuestions={filteredQuestions}
         />
       </div>
     );

@@ -18,6 +18,7 @@ import { Separator } from "@/components/ui/separator"
 import { useForm } from 'react-hook-form'
 // import { incrementUpVotes } from '@/lib/increament'
 import CreateAnswerForm from './CreateAnswerForm'
+import RelatedQuestions from './related-questions'
 
 export default function QuestionDetail({question,answers,session}:{question:any,answers:any,session:any}) {
  
@@ -38,7 +39,8 @@ export default function QuestionDetail({question,answers,session}:{question:any,
 
   
   return (
-    <div className="container max-w-4xl py-6 space-y-8">
+    <div className="flex py-6 w-100% px-4 md:px-12 lg:px-24 ">
+       <div className="container w-60% h-[900px] overflow-y-auto col-span-8 py-4 space-y-8 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
       {/* Question Card */}
       <Card>
         <CardHeader className="flex flex-row gap-4 space-y-0">
@@ -142,6 +144,12 @@ export default function QuestionDetail({question,answers,session}:{question:any,
         </div>
       </div>
     </div>
+      <div className="w-30% ml-3 mt-12 col-span-4">
+        <RelatedQuestions currentQuestionId={question.id}/>
+      </div>
+    </div>
+   
+
   )
 }
 
