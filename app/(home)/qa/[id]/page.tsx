@@ -10,7 +10,7 @@ import { getServerSession } from 'next-auth';
 // import { getSingleDataItem } from '@/lib/getSingleDataItem';
 
 
-export default async function QuestionPage({params}: {params: { id: string }}) {
+export default async function Page({params}: {params: { id: string }}) {
   
 
   try {
