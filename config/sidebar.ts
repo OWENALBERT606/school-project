@@ -4,6 +4,7 @@ import {
   BarChart2,
   BarChart4,
   Book,
+  Brain,
   Cable,
   CircleDollarSign,
   FileQuestionIcon,
@@ -103,6 +104,25 @@ export const sidebarLinks: ISidebarLink[] = [
         title: "Answers",
         href: "/dashboard/answers",
         permission: "answers.read",
+      },
+    ],
+  },
+  {
+    title: "Knowledge Base",
+    icon: Brain,
+    dropdown: true,
+    href: "/dashboard/articles",
+    permission: "articles.read",
+    dropdownMenu: [
+      {
+        title: "Articles",
+        href: "/dashboard/articles",
+        permission: "articles.read",
+      },
+      {
+        title: "Comments",
+        href: "/dashboard/comments",
+        permission: "comments.read",
       },
     ],
   },

@@ -83,3 +83,14 @@ export interface RoleResponse {
   createdAt: Date;
   updatedAt: Date;
 }
+export type ArticleProps = {
+  title:  string;
+  content:string;
+  likes?:number;
+  dislikes?:number;
+  Attachment:string;
+  isActive:boolean;
+  userId:string;
+  categoryId:string;
+  subcategoryId:string
+  };
