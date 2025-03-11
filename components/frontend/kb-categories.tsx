@@ -221,7 +221,7 @@ export default function KbCategories({categories}:{categories:any}) {
                       {category.subcategories.slice(0, 4).map((subcategory:any,i:any) => (
                         <Link
                           key={subcategory.id}
-                          href={`/categories/${category.id}/${subcategory.id}`}
+                          href={`/kb/${category.id}/${subcategory.id}`}
                           className="text-sm hover:underline flex items-center gap-1"
                         >
                           <ChevronRight className="h-3 w-3 text-muted-foreground" />
@@ -234,7 +234,7 @@ export default function KbCategories({categories}:{categories:any}) {
                     {category.subcategories.length > 0 && (
                       <div className="mt-2 text-right">
                         <Button variant="link" size="sm" asChild className="h-auto p-0">
-                          <Link href={`/categories/${category.id}`}>
+                          <Link href={`/kb/${category.id}`}>
                             View all {category.subcategories.length} subcategories
                           </Link>
                         </Button>
