@@ -32,6 +32,10 @@ export async function getAllCategories() {
       orderBy: {
         createdAt: "desc",
       },
+      include:{
+        articles:true,
+        subcategories:true
+      }
     });
 
     return categories;

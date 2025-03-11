@@ -35,7 +35,8 @@ export async function getAllSubCategories() {
       include:{
         questions:true,
         preferences:true,
-        category:true
+        category:true,
+        articles:true
       }
     });
 

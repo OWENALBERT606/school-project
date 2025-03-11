@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import KbCategories from "../../../components/frontend/kb-categories"
+import { Category } from "@prisma/client"
+import { getAllCategories } from "@/actions/categories"
 
-export default function Home() {
+export default async function Home() {
+    const categories: Category[] = (await getAllCategories()) || [];
   return (
     <div className="flex min-h-screen px-4 md:px-12 lg:px-24 flex-col">
       <main className="flex-1">
@@ -43,11 +47,10 @@ export default function Home() {
           </div>
         </section>
         <section className="w-full py-12 md:py-4 lg:py-8 flex justify-center items-center gap-7 bg-white">
-         <Button className="!bg-green-900"><Link href="/kb/categories">Explore Categories</Link></Button>
-         <Button className="!bg-green-900"><Link href="/kb/topics">Explore Topics</Link></Button>
+         <KbCategories categories={categories}/>
         </section>
 
-        <section className="w-full py-4 md:py-6 lg:py-8">
+        {/* <section className="w-full py-4 md:py-6 lg:py-8">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -180,10 +183,10 @@ export default function Home() {
               </Card>
             </div>
           </div>
-        </section>
+        </section> */}
 
-        <section className="w-full py-4 md:py-6 lg:py-8 bg-green-50">
-          <div className="container px-4 md:px-6">
+        <section className="w-full py-4 md:py-6 lg:py-8">
+          <div className="">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Featured Content</h2>
@@ -192,13 +195,13 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <Tabs defaultValue="popular" className="mt-8 w-full max-w-4xl mx-auto">
+            <Tabs defaultValue="popular" className="mt-8 w-full mx-auto">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="popular">Popular</TabsTrigger>
                 <TabsTrigger value="recent">Recently Updated</TabsTrigger>
               </TabsList>
               <TabsContent value="popular" className="mt-6">
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid gap-6 md:grid-cols-3">
                   {[1, 2, 3, 4].map((i) => (
                     <Card key={i} className="overflow-hidden">
                       <img
