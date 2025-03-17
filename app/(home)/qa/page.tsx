@@ -34,7 +34,7 @@ export default async function Home() {
         </div>
       </main>
     </div>
-
+    
   </div>
   )
 }

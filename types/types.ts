@@ -28,6 +28,22 @@ userId:string
 upVotes?:any;
 downVotes?:any
 };
+export type TopicProps = {
+title:string;
+description:string;
+userId:string
+};
+export type DiscussionProps = {
+title:string;
+content:string;
+attachment:string;
+isActive:boolean;
+userId:string;
+views:number;
+topicId:string;
+likes:number;
+dislikes:number;
+};
 export type SavingProps = {
   amount: number;
   month: string;

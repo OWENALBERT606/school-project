@@ -145,6 +145,36 @@ export const permissions: ModulePermissions[] = [
     },
   },
   {
+    display: "discussions",
+    name: "discussions",
+    permissions: {
+      create: "discussions.create",
+      read: "discussions.read",
+      update: "discussions.update",
+      delete: "discussions.delete",
+    },
+  },
+  {
+    display: "topics",
+    name: "topics",
+    permissions: {
+      create: "topics.create",
+      read: "topics.read",
+      update: "topics.update",
+      delete: "topics.delete",
+    },
+  },
+  {
+    display: "responses",
+    name: "responses",
+    permissions: {
+      create: "responses.create",
+      read: "responses.read",
+      update: "responses.update",
+      delete: "responses.delete",
+    },
+  },
+  {
     display: "Answers",
     name: "answers",
     permissions: {

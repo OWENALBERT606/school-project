@@ -48,7 +48,7 @@ console.log(filteredAnswers);
     // );
 
     return (
-      <div className='mt-4'>
+      <div className='mt-4 container mx-auto'>
         <QuestionDetail 
           question={question}
           answers={filteredAnswers}

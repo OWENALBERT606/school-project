@@ -15,6 +15,7 @@ import {
   Presentation,
   Settings,
   Users,
+  Users2,
 } from "lucide-react";
 
 export interface ISidebarLink {
@@ -123,6 +124,30 @@ export const sidebarLinks: ISidebarLink[] = [
         title: "Comments",
         href: "/dashboard/comments",
         permission: "comments.read",
+      },
+    ],
+  },
+  {
+    title: "Community",
+    icon: Users2,
+    dropdown: true,
+    href: "/dashboard/community",
+    permission: "discussions.read",
+    dropdownMenu: [
+      {
+        title: "Topics",
+        href: "/dashboard/topics",
+        permission: "topics.read",
+      },
+      {
+        title: "Discussions",
+        href: "/dashboard/discussions",
+        permission: "discussions.read",
+      },
+      {
+        title: "Responses",
+        href: "/dashboard/responses",
+        permission: "responses.read",
       },
     ],
   },

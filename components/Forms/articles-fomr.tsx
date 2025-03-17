@@ -21,6 +21,7 @@ import FormFooter from "./FormFooter";
 import Pdfinput from "../FormInputs/PdfInput";
 import { createArticle, updateArticleById } from "@/actions/article";
 import FormSelectInput from "../FormInputs/FormSelectInput";
+import VEditor from "../dashboard/text-editor";
 
 export type SelectOptionProps = {
   label: string;
@@ -58,6 +59,8 @@ export default function ArticleForm({
   const [selectedSubCategory,setSelectedSubCategory]=useState<any>(subcategories[0]);
 //   const initialAttachment = initialData?.attachment || "";
     const [attachment, setAttachment] = useState();
+    const [content, setContent] = useState("<p>write here</p>");
+
 
 
   async function saveArticle(data: ArticleProps) {
@@ -66,6 +69,7 @@ export default function ArticleForm({
       data.categoryId=selectedCategory.value
       data.userId=session?.user.id
       data.subcategoryId=selectedSubCategory.value
+      data.content=content
 
       if (editingId) {
         await updateArticleById(editingId, data);
@@ -81,9 +85,10 @@ export default function ArticleForm({
         setLoading(false);
         // Toast
         toast.success("Successfully Created!");
+        console.log(data)
         //reset
         reset();
-        router.push("/dashboard/articles");
+        // router.push("/dashboard/articles");
       }
     } catch (error) {
       setLoading(false);
@@ -145,14 +150,6 @@ export default function ArticleForm({
                 href="/dashboard/subcategories/new"
               />
                 </div>
-                <div className="grid gap-3">
-                  <TextArea
-                    register={register}
-                    errors={errors}
-                    label="Article Content"
-                    name="content"
-                  />
-                </div>
                  <div className="grid auto-rows-max items-start gap-4 ">
                             <Pdfinput
                               label="resource /pdf/docx/xls"
@@ -165,7 +162,14 @@ export default function ArticleForm({
             </CardContent>
           </Card>
         </div>
+      
       </div>
+      <VEditor
+      variant="default"
+      content={content}
+      setContent={setContent}
+      isEditable={true}
+    />
       <FormFooter
         href="/articles"
         editingId={editingId}

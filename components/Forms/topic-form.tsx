@@ -1,49 +1,43 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { generateSlug } from "@/lib/generateSlug";
 import toast from "react-hot-toast";
-import { Category } from "@prisma/client";
-import { CategoryProps } from "@/types/types";
+import {TopicProps} from "@/types/types";
 import FormHeader from "./FormHeader";
 import TextInput from "../FormInputs/TextInput";
 import TextArea from "../FormInputs/TextAreaInput";
-import ImageInput from "../FormInputs/ImageInput";
 import FormFooter from "./FormFooter";
-import { createCategory, updateCategoryById } from "@/actions/categories";
-import VEditor from "../dashboard/text-editor";
-// import VEditor from "../FormInputs/TextEditor";
+import { createTopic, updateTopicById } from "@/actions/topics";
 
 export type SelectOptionProps = {
   label: string;
   value: string;
 };
-type CategoryFormProps = {
+type TopicFormProps = {
   editingId?: string | undefined;
-  initialData?: Category | undefined | null;
+  initialData?: TopicProps | undefined | null;
+  session?: any | undefined | null;
 };
-export default function CategoryForm({
+export default function TopicForm({
   editingId,
   initialData,
-}: CategoryFormProps) {
+  session
+}: TopicFormProps) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<CategoryProps>({
+  } = useForm<TopicProps>({
     defaultValues: {
       title: initialData?.title,
       description: initialData?.description || "",
@@ -52,38 +46,29 @@ export default function CategoryForm({
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const initialImage = initialData?.imageUrl || "/placeholder.svg";
-  const [imageUrl, setImageUrl] = useState(initialImage);
-  const [content, setContent] = useState("<p>Initial content</p>");
 
-  console.log(imageUrl);
-
-  async function saveCategory(data: CategoryProps) {
+  async function saveData(data: TopicProps) {
     try {
       setLoading(true);
-      data.slug = generateSlug(data.title);
-      data.imageUrl = imageUrl;
+      data.userId=session?.user.id
 
       if (editingId) {
-        await updateCategoryById(editingId, data);
+        await updateTopicById(editingId, data);
         setLoading(false);
         // Toast
         toast.success("Updated Successfully!");
         //reset
         reset();
         //route
-        router.push("/dashboard/categories");
-        setImageUrl("/placeholder.svg");
+        router.push("/dashboard/topics");
       } else {
-        await createCategory(data);
+        await createTopic(data);
         setLoading(false);
         // Toast
         toast.success("Successfully Created!");
         //reset
         reset();
-        setImageUrl("/placeholder.svg");
-        //route
-        router.push("/dashboard/categories");
+        router.push("/dashboard/topics");
       }
     } catch (error) {
       setLoading(false);
@@ -99,14 +84,13 @@ export default function CategoryForm({
   // console.log(error);
   // }
   // }
-  console.log(status);
 
   return (
-    <form className="" onSubmit={handleSubmit(saveCategory)}>
+    <form className="" onSubmit={handleSubmit(saveData)}>
       <FormHeader
-        href="/categories"
+        href="/topics"
         parent=""
-        title="Category"
+        title="topic"
         editingId={editingId}
         loading={loading}
       />
@@ -126,7 +110,7 @@ export default function CategoryForm({
                   <TextInput
                     register={register}
                     errors={errors}
-                    label="Category Title"
+                    label="Topic Title"
                     name="title"
                   />
                 </div>
@@ -134,7 +118,7 @@ export default function CategoryForm({
                   <TextArea
                     register={register}
                     errors={errors}
-                    label="Description"
+                    label="Topic Description"
                     name="description"
                   />
                 </div>
@@ -142,30 +126,12 @@ export default function CategoryForm({
             </CardContent>
           </Card>
         </div>
-        <div className="lg:col-span-4 col-span-full ">
-          <div className="grid auto-rows-max items-start gap-4 ">
-            <ImageInput
-              title="Category Image"
-              imageUrl={imageUrl}
-              setImageUrl={setImageUrl}
-              endpoint="categoryImage"
-            />
-          </div>
-        </div>
-      
       </div>
-      <VEditor
-      variant="default"
-      content={content}
-      setContent={setContent}
-      isEditable={true}
-    />
-
       <FormFooter
-        href="/categories"
+        href="/topics"
         editingId={editingId}
         loading={loading}
-        title="Category"
+        title="topics"
         parent=""
       />
     </form>

@@ -1,186 +1,4 @@
-// // This is your Prisma schema file,
-// // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// generator client {
-//   provider = "prisma-client-js"
-// }
-
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
-
-// model Account {
-//   id                String  @id @default(cuid())
-//   userId            String
-//   type              String
-//   provider          String
-//   providerAccountId String
-//   refresh_token     String?
-//   access_token      String?
-//   expires_at        Int?
-//   token_type        String?
-//   scope             String?
-//   id_token          String?
-//   session_state     String?
-
-//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-//   @@unique([provider, providerAccountId])
-// }
-
-// model Session {
-//   id           String   @id @default(cuid())
-//   sessionToken String   @unique
-//   userId       String
-//   expires      DateTime
-//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-// }
-
-// enum UserRole {
-//   USER
-//   ADMIN
-// }
-
-// model Role {
-//   id          String   @id @default(cuid())
-//   displayName String // Human-readable name (e.g., "Store Manager")
-//   roleName    String   @unique // System name (e.g., "store_manager")
-//   description String?
-//   permissions String[] // Array of permission strings
-//   users       User[]   @relation("UserRoles")
-//   createdAt   DateTime @default(now())
-//   updatedAt   DateTime @updatedAt
-
-//   @@index([roleName])
-// }
-
-// model User {
-//   id            String    @id @default(cuid())
-//   name          String
-//   firstName     String
-//   lastName      String
-//   preferences Preference[]
-//   phone         String    @unique
-//   email         String    @unique
-//   emailVerified DateTime?
-//   image         String?
-//   jobTitle      String?
-//   roles         Role[]    @relation("UserRoles") // Updated to support multiple roles
-//   // role          UserRole  @default(USER)
-//   password      String?
-//   status        Boolean   @default(true)
-//   accounts      Account[]
-//   sessions      Session[]
-//   subcategories   subCategory[]
-//   questions     Question[]
-//   answers       Answer[]
-//   blogs         Blog[]
-//   isVerfied     Boolean   @default(false)
-//   token         String?
-//   createdAt     DateTime  @default(now())
-//   updatedAt     DateTime  @updatedAt
-//   // roleId        String?
-// }
-
-// model Category {
-//   id          String    @id @default(cuid())
-//   title       String
-//   slug        String    @unique
-//   imageUrl    String?
-  
-//   description String?
-//   preferences Preference[]
-//   subCategories subCategory[]
-//   createdAt   DateTime  @default(now())
-//   updatedAt   DateTime? @updatedAt
-// }
-// model subCategory {
-//   id          String    @id @default(cuid())
-//   title       String
-//   slug        String    @unique
-//   imageUrl    String?
-//   user       User      @relation(fields: [userId], references: [id])
-//   userId     String 
-//   description String?
-//   category    Category @relation(fields: [categoryId], references: [id])
-//   categoryId  String 
-//   preferences Preference[]
-//   createdAt   DateTime  @default(now())
-//   updatedAt   DateTime? @updatedAt
-// }
-
-// model Preference {
-//   id            String      @id @default(uuid())
-//   userId        String
-//   categoryId    String?
-//   subCategoryId String?
-//   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   category      Category?   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-//   subCategory   subCategory? @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
-//   // @@unique([userId, categoryId, subcategoryId]) // Ensures unique preferences
-// }
-
-
-// model Blog {
-//   id            String       @id @default(cuid())
-//   title         String
-//   slug          String       @unique
-//   description   String?      @db.Text // Meta description for SEO
-//   thumbnail     String?
-//   content       String?      @db.Text
-//   published     Boolean?     @default(false)
-//   featured      Boolean?     @default(false)
-//   author        User         @relation(fields: [authorId], references: [id])
-//   authorId      String
-//   authorName    String
-//   authorImage   String?
-//   authorTitle   String?
-//   category      BlogCategory @relation(fields: [categoryId], references: [id])
-//   categoryId    String
-//   categoryTitle String
-//   readingTime   Int? // Estimated reading time in minutes
-//   createdAt     DateTime     @default(now())
-//   updatedAt     DateTime     @updatedAt
-// }
-
-// model BlogCategory {
-//   id        String   @id @default(cuid())
-//   name      String   @unique
-//   slug      String   @unique
-//   blogs     Blog[]
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
-
-// model Question {
-  
-//   id            String       @id @default(cuid())
-//   title      String
-//   courseUnit String
-//   content    String
-//   stars      Float @default(0)
-//   user       User      @relation(fields: [userId], references: [id])
-//   userId     String 
-//   answers   Answer[]
-//   createdAt  DateTime  @default(now())
-//   updatedAt  DateTime? @updatedAt
-// }
-// model Answer {
-//   id            String       @id @default(cuid())
-//   content    String
-//   question   Question    @relation(fields: [questionId], references: [id])
-//   questionId   String 
-//   user       User      @relation(fields: [userId], references: [id])
-//   userId     String 
-//   upVotes    Float @default(0)
-//   downVotes  Float @default(0)
-//   createdAt  DateTime  @default(now())
-//   updatedAt  DateTime? @updatedAt
-// }
-
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -248,9 +66,12 @@ model User {
   image         String?
   jobTitle      String?
   questions     Question[]
+  topics         Topic[]
+  responses     Response[]
   answers       Answer[]
   articles     Article[]
   comments     Comment[]
+  discussions    Discussion[]
   roles         Role[]    @relation("UserRoles") // Updated to support multiple roles
   // role          UserRole  @default(USER)
   password      String?
@@ -392,6 +213,43 @@ model Comment {
   userId        String 
   article       Article      @relation(fields: [articleId], references: [id])
   articleId     String 
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+}
+model Topic {
+  id            String       @id @default(cuid())
+  title         String
+  description   String
+  user          User      @relation(fields: [userId], references: [id])
+  userId        String 
+  discussions   Discussion[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+}
+model Discussion {
+  id            String       @id @default(cuid())
+  title         String
+  content       String
+  attachment   String?
+  isActive      Boolean @default(true)
+  user          User      @relation(fields: [userId], references: [id])
+  topicId        String 
+  topic          Topic      @relation(fields: [topicId], references: [id])
+  userId        String
+  views         Int @default(0) 
+  likes         Int @default(0) 
+  dislikes       Int @default(0) 
+  responses      Response[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+}
+model Response {
+  id            String       @id @default(cuid())
+  content       String
+  user          User      @relation(fields: [userId], references: [id])
+  userId        String
+  discussion     Discussion      @relation(fields: [discussionId], references: [id])
+  discussionId    String
   createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
 }

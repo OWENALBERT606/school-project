@@ -24,6 +24,12 @@ export const ourFileRouter = {
       return { uploadedBy: "JB" };
     }
   ),
+  discussionDocument: f({ blob: { maxFileSize: "4MB" } }).onUploadComplete(
+    async ({ metadata, file }) => {
+      console.log("file url", file.url);
+      return { uploadedBy: "JB" };
+    }
+  ),
   subcategoryImage: f({ image: { maxFileSize: "1MB" } }).onUploadComplete(
     async ({ metadata, file }) => {
       console.log("file url", file.url);
