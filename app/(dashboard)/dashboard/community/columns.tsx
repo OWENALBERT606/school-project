@@ -10,8 +10,8 @@ import ImageColumn from "@/components/DataTableColumns/ImageColumn";
 import SortableColumn from "@/components/DataTableColumns/SortableColumn";
 import { ColumnDef } from "@tanstack/react-table";
 import ActionColumn from "@/components/DataTableColumns/ActionColumn";
-import { Category, Question } from "@prisma/client";
-export const columns: ColumnDef<Question>[] = [
+import { Category, Discussion, Question } from "@prisma/client";
+export const columns: ColumnDef<Discussion>[] = [
   {
     id: "select",
     header: ({ table }) => (

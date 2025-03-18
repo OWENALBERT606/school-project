@@ -1,18 +1,36 @@
 // import { DiscussionList } from "@/components/discussion-list"
 // import { NewDiscussionForm } from "@/components/new-discussion-form"
 // import { CategoryFilters } from "@/components/category-filters"
+import { getAllDiscussions } from "@/actions/discussions";
+import { getAllTopics } from "@/actions/topics";
 import { CategoryFilters } from "@/components/frontend/discussions/category-filters"
 import { DiscussionList } from "@/components/frontend/discussions/discussion-list"
 import { NewDiscussionForm } from "@/components/frontend/discussions/new-discussion-form"
+import { authOptions } from "@/config/auth";
+import { Discussion, Topic } from "@prisma/client";
+import { getServerSession } from "next-auth";
 import Link from "next/link"
 
-export default function Page() {
+export default async function Page() {
+    const discussions: Discussion[] = (await getAllDiscussions()) || [];
+     const topicsData: Topic[] = (await getAllTopics()) || [];
+    
+      const topics= topicsData.map((item:any,i:any)=>{
+        return(
+          {
+            label:item.title,
+            value:item.id
+          }
+        )
+      })
+    
+      const session = await getServerSession(authOptions);
   return (
     <div className="min-h-screen mx-auto px-4 md:px-12 lg:px-24 bg-slate-50">
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <NewDiscussionForm />
+            <NewDiscussionForm session={session} topics={topics}/>
             <div className="mt-8">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-semibold">Recent Discussions</h2>
@@ -21,7 +39,7 @@ export default function Page() {
                 </Link>
               </div>
               <CategoryFilters />
-              <DiscussionList />
+              <DiscussionList discussions={discussions}  />
             </div>
           </div>
           <div className="hidden lg:block">

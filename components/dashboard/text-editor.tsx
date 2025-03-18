@@ -120,7 +120,7 @@ export default function VEditor({
     editorProps: {
       attributes: {
         class: `${
-          variant === "default" ? "min-h-[10.7cm]" : "h-10"
+          variant === "default" ? "min-h-[5.7cm]" : "h-6"
         } w-full mx-auto p-4 shadow-lg border rounded-lg prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none focus:outline-none bg-white overflow-y-auto`,
       },
     },

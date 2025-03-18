@@ -11,6 +11,8 @@ export async function createDiscussion(data: DiscussionProps) {
     });
     // console.log(newCategory);
     revalidatePath("/dashboard/discussions");
+    revalidatePath("/community");
+    
     return newDiscussion;
   } catch (error) {
     console.log(error);
