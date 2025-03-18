@@ -44,6 +44,11 @@ topicId:string;
 likes:number;
 dislikes:number;
 };
+export type ResponseProps = {
+content:string;
+userId:string;
+discussionId:string
+};
 export type SavingProps = {
   amount: number;
   month: string;
