@@ -12,14 +12,14 @@ import { NewDiscussionForm } from "@/components/frontend/discussions/new-discuss
 import PopularTopics from "@/components/frontend/discussions/popular-topics";
 import RecentDiscussion from "@/components/frontend/discussions/recent-discussions";
 import { authOptions } from "@/config/auth";
-import { SubCategoryProps } from "@/types/types";
+import { SubCategoryProps, TopicProps } from "@/types/types";
 import { Category, Discussion, SubCategory, Topic } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import Link from "next/link"
 
 export default async function Page() {
     const discussions: Discussion[] = (await getAllDiscussions()) || [];
-     const topicsData: Topic[] = (await getAllTopics()) || [];
+     const topicsData: TopicProps[] = (await getAllTopics()) || [];
 
      const categories: Category[] = (await getAllCategories()) || [];
 

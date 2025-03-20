@@ -61,7 +61,7 @@ const discussionData = {
   ],
 }
 
-export function DiscussionDetail() {
+export function DiscussionDetail({discussion}:{discussion:any}) {
   const [likes, setLikes] = useState(discussionData.likes)
   const [dislikes, setDislikes] = useState(discussionData.dislikes)
   const [comments, setComments] = useState(discussionData.comments)

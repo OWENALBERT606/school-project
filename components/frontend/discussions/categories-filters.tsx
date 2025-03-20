@@ -12,7 +12,7 @@ export default function CommunityCategoryFilters({subcategories}:{subcategories:
                                 return(
                                     <Link
                           href={`/community/subcategory/${item.id}`}
-                          className="bg-green-100 text-green-800 px-3 py-2 rounded-md hover:bg-green-200 text-center"
+                          className="bg-green-100 text-xs text-green-800 px-3 py-2 rounded-md hover:bg-green-200 text-center"
                         >
                           {item.title}
                         </Link>

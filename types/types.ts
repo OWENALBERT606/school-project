@@ -37,13 +37,14 @@ userId:string;
 export type DiscussionProps = {
 title:string;
 content:string;
-attachment:string;
+attachment?:string;
 isActive:boolean;
 userId:string;
 views:number;
 topicId:string;
 likes:number;
 dislikes:number;
+discussionId?:string;
 };
 export type ResponseProps = {
 content:string;
