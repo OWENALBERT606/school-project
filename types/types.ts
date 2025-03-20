@@ -31,7 +31,8 @@ downVotes?:any
 export type TopicProps = {
 title:string;
 description:string;
-userId:string
+userId:string;
+// discussions?: { id: string }[];
 };
 export type DiscussionProps = {
 title:string;

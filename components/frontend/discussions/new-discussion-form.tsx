@@ -94,7 +94,7 @@ async function saveData(data: DiscussionProps) {
         //reset
         reset();
         //route
-        router.push("/dashboard/discussions");
+        router.push("/community");
       } else {
         await createDiscussion(data);
         setLoading(false);
@@ -102,7 +102,10 @@ async function saveData(data: DiscussionProps) {
         toast.success("Successfully Created!");
         //reset
         reset();
-        router.push("/dashboard/discussions");
+        setIsExpanded(false);
+
+        router.refresh();
+        router.push("/community");
       }
     } catch (error) {
       setLoading(false);
@@ -117,10 +120,10 @@ async function saveData(data: DiscussionProps) {
       <form  onSubmit={handleSubmit(saveData)}>
         <CardContent className="p-4 pt-0">
           <div className="flex gap-3">
-            <Avatar className="h-10 w-10 border">
+            {/* <Avatar className="h-10 w-10 border">
               <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Your avatar" />
               <AvatarFallback>{session.user.image}</AvatarFallback>
-            </Avatar>
+            </Avatar> */}
             <div className="flex-1 space-y-3">
               {!isExpanded ? (
                 <Input placeholder="What's on your mind about farming today?" onFocus={() => setIsExpanded(true)} />
@@ -139,7 +142,7 @@ async function saveData(data: DiscussionProps) {
                   <TextInput
                     register={register}
                     errors={errors}
-                    label="Question Title"
+                    label="Discussion Title"
                     name="title"
                   />
                   <FormSelectInput
@@ -187,9 +190,9 @@ async function saveData(data: DiscussionProps) {
             <Button type="button" variant="ghost" onClick={() => setIsExpanded(false)}>
               Cancel
             </Button>
-            <button type="submit">
-              Post Discussion
-            </button>
+            <Button type="submit" disabled={loading}>
+    {loading ? "Posting..." : "Post Discussion"}
+  </Button>
           </CardFooter>
         )}
       </form>

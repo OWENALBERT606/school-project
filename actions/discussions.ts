@@ -10,8 +10,9 @@ export async function createDiscussion(data: DiscussionProps) {
       data,
     });
     // console.log(newCategory);
-    revalidatePath("/dashboard/discussions");
+   
     revalidatePath("/community");
+    revalidatePath("/dashboard/discussions");
     
     return newDiscussion;
   } catch (error) {

@@ -82,7 +82,7 @@ export function DiscussionList({discussions}:{discussions:any}) {
               <div className="space-y-1">
                 <div className="flex items-center">
                   <span className="font-medium">{discussion.user.name}</span>
-                  {/* <span className="text-muted-foreground text-xs ml-2">• {discussion.createdAt}</span> */}
+                  <span className="text-muted-foreground text-xs ml-2">• {discussion.createdAt.toLocaleDateString("en-GB")}</span>
                 </div>
                 <h3 className="font-semibold text-lg">{discussion.title}</h3>
               </div>
@@ -111,11 +111,11 @@ export function DiscussionList({discussions}:{discussions:any}) {
               </Button>
               <Button variant="ghost" size="sm" className="flex items-center gap-1">
                 <MessageSquare className="h-4 w-4" />
-                <span>{discussion.comments}</span>
+                <span>{discussion.responses.length}</span>
               </Button>
             </div>
             <Link
-              href={`/discussion/${discussion.id}`}
+              href={`/community/${discussion.id}`}
               className="text-green-700 hover:text-green-800 text-sm font-medium"
             >
               View Discussion

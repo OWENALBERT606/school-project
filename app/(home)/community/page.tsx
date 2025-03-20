@@ -1,19 +1,34 @@
 // import { DiscussionList } from "@/components/discussion-list"
 // import { NewDiscussionForm } from "@/components/new-discussion-form"
 // import { CategoryFilters } from "@/components/category-filters"
+import { getAllCategories } from "@/actions/categories";
 import { getAllDiscussions } from "@/actions/discussions";
+import { getAllSubCategories } from "@/actions/subcategories";
 import { getAllTopics } from "@/actions/topics";
+import CommunityCategoryFilters from "@/components/frontend/discussions/categories-filters";
 import { CategoryFilters } from "@/components/frontend/discussions/category-filters"
 import { DiscussionList } from "@/components/frontend/discussions/discussion-list"
 import { NewDiscussionForm } from "@/components/frontend/discussions/new-discussion-form"
+import PopularTopics from "@/components/frontend/discussions/popular-topics";
+import RecentDiscussion from "@/components/frontend/discussions/recent-discussions";
 import { authOptions } from "@/config/auth";
-import { Discussion, Topic } from "@prisma/client";
+import { SubCategoryProps } from "@/types/types";
+import { Category, Discussion, SubCategory, Topic } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import Link from "next/link"
 
 export default async function Page() {
     const discussions: Discussion[] = (await getAllDiscussions()) || [];
      const topicsData: Topic[] = (await getAllTopics()) || [];
+
+     const categories: Category[] = (await getAllCategories()) || [];
+
+     const subcategories: SubCategory[] = (await getAllSubCategories()) || [];
+    //  const sortedTopics = topicsData.sort((a, b) => 
+    //   (b.discussions?.length || 0) - (a.discussions?.length || 0)
+    // );
+    
+    // const topTopics = sortedTopics.slice(0, 5);
     
       const topics= topicsData.map((item:any,i:any)=>{
         return(
@@ -32,52 +47,13 @@ export default async function Page() {
           <div className="lg:col-span-2">
             <NewDiscussionForm session={session} topics={topics}/>
             <div className="mt-8">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold">Recent Discussions</h2>
-                <Link href="/topics" className="text-green-700 hover:text-green-800 font-medium text-sm">
-                  View All Topics →
-                </Link>
-              </div>
-              <CategoryFilters />
+              <RecentDiscussion discussions={discussions}/>
+              <CategoryFilters categories={categories} subcategories={subcategories} />
               <DiscussionList discussions={discussions}  />
             </div>
           </div>
           <div className="hidden lg:block">
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold">Popular Topics</h2>
-                <Link href="/community/topics" className="text-green-700 hover:text-green-800 text-sm">
-                  View All →
-                </Link>
-              </div>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/topics/sustainable-farming" className="text-green-700 hover:underline">
-                    Sustainable Farming
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/topics/crop-rotation" className="text-green-700 hover:underline">
-                    Crop Rotation
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/topics/irrigation-systems" className="text-green-700 hover:underline">
-                    Irrigation Systems
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/topics/organic-pest-control" className="text-green-700 hover:underline">
-                    Organic Pest Control
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/topics/soil-health" className="text-green-700 hover:underline">
-                    Soil Health
-                  </Link>
-                </li>
-              </ul>
-            </div>
+           <PopularTopics sortedTopics={topicsData}/>
 
             <div className="bg-white rounded-lg shadow p-6 mt-6">
               <h2 className="text-xl font-semibold mb-4">Community Guidelines</h2>
@@ -87,47 +63,7 @@ export default async function Page() {
               </p>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6 mt-6">
-              <h2 className="text-xl font-semibold mb-4">Browse by Category</h2>
-              <div className="grid grid-cols-2 gap-2">
-                <Link
-                  href="/topics/crops"
-                  className="bg-green-100 text-green-800 px-3 py-2 rounded-md hover:bg-green-200 text-center"
-                >
-                  Crops
-                </Link>
-                <Link
-                  href="/topics/livestock"
-                  className="bg-green-100 text-green-800 px-3 py-2 rounded-md hover:bg-green-200 text-center"
-                >
-                  Livestock
-                </Link>
-                <Link
-                  href="/topics/equipment"
-                  className="bg-green-100 text-green-800 px-3 py-2 rounded-md hover:bg-green-200 text-center"
-                >
-                  Equipment
-                </Link>
-                <Link
-                  href="/topics/soil"
-                  className="bg-green-100 text-green-800 px-3 py-2 rounded-md hover:bg-green-200 text-center"
-                >
-                  Soil
-                </Link>
-                <Link
-                  href="/topics/weather"
-                  className="bg-green-100 text-green-800 px-3 py-2 rounded-md hover:bg-green-200 text-center"
-                >
-                  Weather
-                </Link>
-                <Link
-                  href="/topics/market"
-                  className="bg-green-100 text-green-800 px-3 py-2 rounded-md hover:bg-green-200 text-center"
-                >
-                  Market
-                </Link>
-              </div>
-            </div>
+            <CommunityCategoryFilters subcategories={subcategories}/>
           </div>
         </div>
       </main>
