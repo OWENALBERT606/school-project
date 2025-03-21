@@ -95,3 +95,31 @@ export async function createBulkArticles(articles:ArticleProps[]) {
     console.log(error);
   }
 }
+export async function getTrendingArticles() {
+  try {
+    const articles = await db.article.findMany({
+      include: {
+        comments: true,
+        subcategory: true,
+        category: true,
+        user: true,
+        _count: {
+          select: { comments: true },
+        },
+      },
+    });
+
+    const sortedArticles = articles
+      .map((article) => ({
+        ...article,
+        score: article._count.comments,
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    return sortedArticles;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+

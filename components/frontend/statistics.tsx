@@ -47,13 +47,13 @@ const StatItem = ({ icon: Icon, value, label }: StatItemProps) => {
   )
 }
 
-export default function AnimatedStatistics() {
+export default function AnimatedStatistics({users,articles,discussions,answers,questions}:{users:any,answers:any,questions:any,articles:any,discussions:any}) {
   const stats = [
-    { icon: Users, value: 50000, label: "Registered Users" },
-    { icon: MessageSquare, value: 75000, label: "Questions Asked" },
-    { icon: CheckSquare, value: 120000, label: "Answers Provided" },
-    { icon: Sprout, value: 5000, label: "Active Discussions" },
-    { icon: BookOpen, value: 1000, label: "Knowledge Base Articles" },
+    { icon: Users, value: users.length, label: "Registered Users" },
+    { icon: MessageSquare, value: questions.length, label: "Questions Asked" },
+    { icon: CheckSquare, value:answers.length, label: "Answers Provided" },
+    { icon: Sprout, value:discussions.length, label: "Active Discussions" },
+    { icon: BookOpen, value:articles.length, label: "Knowledge Base Articles" },
   ]
 
   return (

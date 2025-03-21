@@ -2,6 +2,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
+import Link from "next/link"
 
 export default function Hero() {
   return (
@@ -18,12 +19,14 @@ export default function Hero() {
             Your all-in-one platform for agricultural discussions, expert answers, and comprehensive knowledge.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="bg-green-950 hover:bg-green-700">
+           <Link href="/community"> <Button size="lg" className="bg-green-950 hover:bg-green-700">
               Join the Community
-            </Button>
+            </Button></Link>
+            <Link href="/kb">
             <Button size="lg" variant="outline" className="border-white hover:bg-white/60 text-green-950">
               Explore Knowledge Base
             </Button>
+            </Link>
           </div>
           <div className="max-w-xl mx-auto">
             <div className="relative">

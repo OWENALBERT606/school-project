@@ -93,3 +93,31 @@ export async function createBulkDiscussions(discussions:DiscussionProps[]) {
     console.log(error);
   }
 }
+export async function getTrendingDiscussions() {
+  try {
+    const discussions = await db.discussion.findMany({
+      include: {
+        responses: true,
+        user: true,
+        category: true,
+        subcategory: true,
+        topic: true,
+        _count: {
+          select: { responses: true },
+        },
+      },
+    });
+
+    const sortedDiscussions = discussions
+      .map((discussion) => ({
+        ...discussion,
+        score: discussion._count.responses,
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    return sortedDiscussions;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}

@@ -8,19 +8,19 @@ export default function QuickLinks() {
       icon: MessageSquare,
       title: "Forum/Q&A",
       description: "Ask questions, share knowledge",
-      href: "/forum",
+      href: "/qa",
     },
     {
       icon: Users,
       title: "Community Discussions",
       description: "Engage in agricultural topics",
-      href: "/discussions",
+      href: "/community",
     },
     {
       icon: BookOpen,
       title: "Knowledge Base",
       description: "Access guides and resources",
-      href: "/knowledge-base",
+      href: "/kb",
     },
   ]
 

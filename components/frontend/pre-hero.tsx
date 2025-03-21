@@ -1,7 +1,8 @@
 import React from 'react';
-import { TrendingUp, MessageCircle, BookOpen, Award, Leaf } from 'lucide-react';
+import { TrendingUp, MessageCircle, BookOpen, Award, Leaf, Check, CheckCheck } from 'lucide-react';
+import Link from 'next/link';
 
-export default function PreHero() {
+export default function PreHero({trendingQuestions,users,trendingArticles,trendingDiscussions}:{trendingQuestions:any,users:any,trendingArticles:any,trendingDiscussions:any}) {
   return (
     <div className="min-h-screen px-4 md:px-12 bg-gradient-to-b from-green-50 to-white">
       {/* Hero Section with Background */}
@@ -38,9 +39,15 @@ export default function PreHero() {
               <h3 className="text-xl font-semibold text-gray-800">Trending Questions</h3>
             </div>
             <ul className="space-y-3">
-              <li className="text-gray-600">🌱 Best practices for organic pest control?</li>
-              <li className="text-gray-600">🚜 Modern irrigation techniques for water conservation</li>
-              <li className="text-gray-600">🌾 Sustainable crop rotation methods</li>
+              {trendingQuestions.slice(0,4).map((item:any,i:any)=>{
+                return(
+                  <li key={item.id} className="text-gray-600">
+                    <Link className='flex hover:text-green-950' href={`/qa/${item.id}`}> <CheckCheck/>
+                      {item.title.split(" ").slice(0, 10).join(" ") + (item.title.split(" ").length > 10 ? "..." : "")}
+</Link>
+                  </li>
+                )
+              })}
             </ul>
           </div>
 
@@ -53,9 +60,15 @@ export default function PreHero() {
               <h3 className="text-xl font-semibold text-gray-800">Top Discussions</h3>
             </div>
             <ul className="space-y-3">
-              <li className="text-gray-600">📊 Climate-smart farming strategies</li>
-              <li className="text-gray-600">🌿 Regenerative agriculture practices</li>
-              <li className="text-gray-600">🤝 Community supported agriculture</li>
+            {trendingDiscussions.slice(0,4).map((item:any,i:any)=>{
+                return(
+                  <li key={item.id} className="text-gray-600">
+                    <Link className='flex hover:text-green-950' href={`/community/${item.id}`}> <CheckCheck/>
+                      {item.title.split(" ").slice(0, 10).join(" ") + (item.title.split(" ").length > 10 ? "..." : "")}
+</Link>
+                  </li>
+                )
+              })}
             </ul>
           </div>
 
@@ -68,9 +81,15 @@ export default function PreHero() {
               <h3 className="text-xl font-semibold text-gray-800">Featured Articles</h3>
             </div>
             <ul className="space-y-3">
-              <li className="text-gray-600">📱 Digital farming technologies</li>
-              <li className="text-gray-600">🌡️ Climate change adaptation</li>
-              <li className="text-gray-600">💧 Smart water management</li>
+            {trendingArticles.slice(0,4).map((item:any,i:any)=>{
+                return(
+                  <li key={item.id} className="text-gray-600">
+                    <Link className='flex hover:text-green-950' href={`/kb/${item.id}`}> <CheckCheck/>
+                      {item.title.split(" ").slice(0, 10).join(" ") + (item.title.split(" ").length > 10 ? "..." : "")}
+</Link>
+                  </li>
+                )
+              })}
             </ul>
           </div>
 
@@ -83,24 +102,19 @@ export default function PreHero() {
               <h3 className="text-xl font-semibold text-gray-800">User Spotlights</h3>
             </div>
             <ul className="space-y-3">
-              <li className="flex items-center gap-2">
-                <img src="https://images.unsplash.com/photo-1560343776-97e7d202ff0e?auto=format&fit=crop&q=80&w=32&h=32" 
+              {
+                users.slice(0,4).map((user:any,i:any)=>{
+                  return(
+                    <li key={user.id} className="flex items-center gap-2">
+                <img src={user.image} 
                      className="w-8 h-8 rounded-full" 
                      alt="Farmer John" />
-                <span className="text-gray-600">Farmer John - Soil Expert</span>
+                <span className="text-gray-600">{user.name} - {user.jobTitle}</span>
               </li>
-              <li className="flex items-center gap-2">
-                <img src="https://images.unsplash.com/photo-1622766815178-641bef2b4630?auto=format&fit=crop&q=80&w=32&h=32" 
-                     className="w-8 h-8 rounded-full" 
-                     alt="Maria Garcia" />
-                <span className="text-gray-600">Maria G. - Master Gardener</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=32&h=32" 
-                     className="w-8 h-8 rounded-full" 
-                     alt="Sarah Chen" />
-                <span className="text-gray-600">Sarah C. - AgTech Pioneer</span>
-              </li>
+                  )
+                })
+              }
+             
             </ul>
           </div>
         </div>

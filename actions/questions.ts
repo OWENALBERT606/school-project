@@ -94,3 +94,32 @@ export async function createBulkQuestions(questions:QuestionProps[]) {
     console.log(error);
   }
 }
+export async function getTrendingQuestions() {
+  try {
+    const questions = await db.question.findMany({
+      include: {
+        answers: true,
+        subcategory: true,
+        category: true,
+        user: true,
+        _count: {
+          select: { answers: true },
+        },
+      },
+    });
+
+    // Calculate score based on answer count (and optionally stars)
+    const sortedQuestions = questions
+      .map((question) => ({
+        ...question,
+        score: question._count.answers, // or add stars: (question.stars * 2) + question._count.answers
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    return sortedQuestions;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
