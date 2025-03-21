@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { ThumbsDown, ThumbsUp } from "lucide-react"
 import { CommentForm } from "./comment-form"
+import ResponseForm from "./response-form"
 
 // Mock data for a single discussion with comments
 const discussionData = {
@@ -61,7 +62,7 @@ const discussionData = {
   ],
 }
 
-export function DiscussionDetail({discussion}:{discussion:any}) {
+export function DiscussionDetail({discussion,session,responses}:{discussion:any,responses:any,session:any}) {
   const [likes, setLikes] = useState(discussionData.likes)
   const [dislikes, setDislikes] = useState(discussionData.dislikes)
   const [comments, setComments] = useState(discussionData.comments)
@@ -116,7 +117,7 @@ export function DiscussionDetail({discussion}:{discussion:any}) {
                 <span className="font-medium">{discussionData.author.name}</span>
                 <span className="text-muted-foreground text-xs ml-2">• {discussionData.date}</span>
               </div>
-              <h1 className="text-2xl font-bold">{discussionData.title}</h1>
+              <h1 className="text-2xl font-bold">{discussion.title}</h1>
               <div className="flex flex-wrap gap-2">
                 {discussionData.tags.map((tag) => (
                   <span key={tag} className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
@@ -128,45 +129,45 @@ export function DiscussionDetail({discussion}:{discussion:any}) {
           </div>
         </CardHeader>
         <CardContent className="p-6 pt-0">
-          <div className="whitespace-pre-line text-muted-foreground">{discussionData.content}</div>
+          <div className="whitespace-pre-line text-muted-foreground"> <p className="text-muted-foreground" dangerouslySetInnerHTML={{ __html: discussion.content }} /></div>
         </CardContent>
         <CardFooter className="p-6 pt-0">
           <div className="flex items-center gap-4">
             <Button variant="outline" size="sm" className="flex items-center gap-1" onClick={handleLike}>
               <ThumbsUp className="h-4 w-4" />
-              <span>{likes}</span>
+              <span>{discussion.likes}</span>
             </Button>
             <Button variant="outline" size="sm" className="flex items-center gap-1" onClick={handleDislike}>
               <ThumbsDown className="h-4 w-4" />
-              <span>{dislikes}</span>
+              <span>{discussion.dislikes}</span>
             </Button>
           </div>
         </CardFooter>
       </Card>
 
       <div>
-        <h2 className="text-xl font-semibold mb-4">Comments ({comments.length})</h2>
-        <CommentForm onSubmit={addComment} />
-
+        <h2 className="text-xl font-semibold mb-4">Comments ({responses.length})</h2>
+        <ResponseForm session={session} discussionId={discussion.id}/>
         <div className="mt-6 space-y-4">
-          {comments.map((comment) => (
-            <Card key={comment.id}>
+          {responses.map((response:any) => (  
+            
+            <Card key={response.id}>
               <CardHeader className="p-4">
                 <div className="flex items-start gap-3">
                   <Avatar className="h-8 w-8 border">
-                    <AvatarImage src={comment.author.avatar} alt={comment.author.name} />
-                    <AvatarFallback>{comment.author.name.charAt(0)}</AvatarFallback>
+                    {/* <AvatarImage src={responses.user.image} alt={response.user.name} /> */}
+                    <AvatarFallback>{response.user.name.charAt(0)}</AvatarFallback>
                   </Avatar>
                   <div>
                     <div className="flex items-center">
-                      <span className="font-medium">{comment.author.name}</span>
-                      <span className="text-muted-foreground text-xs ml-2">• {comment.date}</span>
+                      <span className="font-medium">{response.user.name}</span>
+                      <span className="text-muted-foreground text-xs ml-2">{response.createdAt.toLocaleDateString("en-GB")}</span>
                     </div>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="p-4 pt-0">
-                <p className="text-muted-foreground">{comment.content}</p>
+              <p className="text-muted-foreground" dangerouslySetInnerHTML={{ __html: response.content }} />
               </CardContent>
               <CardFooter className="p-4 pt-0">
                 <div className="flex items-center gap-4">
@@ -174,19 +175,19 @@ export function DiscussionDetail({discussion}:{discussion:any}) {
                     variant="ghost"
                     size="sm"
                     className="flex items-center gap-1"
-                    onClick={() => handleCommentLike(comment.id)}
+                    onClick={() => handleCommentLike(response.id)}
                   >
                     <ThumbsUp className="h-4 w-4" />
-                    <span>{comment.likes}</span>
+                    <span>{response.likes}</span>
                   </Button>
                   <Button
                     variant="ghost"
                     size="sm"
                     className="flex items-center gap-1"
-                    onClick={() => handleCommentDislike(comment.id)}
+                    onClick={() => handleCommentDislike(response.id)}
                   >
                     <ThumbsDown className="h-4 w-4" />
-                    <span>{comment.dislikes}</span>
+                    <span>{response.dislikes}</span>
                   </Button>
                 </div>
               </CardFooter>

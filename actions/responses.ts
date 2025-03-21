@@ -10,7 +10,8 @@ export async function createResponse(data: ResponseProps) {
       data,
     });
     // console.log(newCategory);
-    revalidatePath("/dashboard/responses");
+    revalidatePath(`/community/${data.discussionId}`);
+    
     return newResponse;
   } catch (error) {
     console.log(error);
@@ -35,7 +36,7 @@ export async function getAllResponses() {
     return null;
   }
 }
-export async function updateResponseById(id: string, data: DiscussionProps) {
+export async function updateResponseById(id: string, data: ResponseProps) {
   try {
     const updatedResponse = await db.response.update({
       where: {
