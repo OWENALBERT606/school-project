@@ -101,13 +101,12 @@ export default function LoginForm() {
                 />
               </div>
             </form>
-            <div className="flex items-center py-4 justify-center space-x-1 text-slate-900">
+            {/* <div className="flex items-center py-4 justify-center space-x-1 text-slate-900">
               <div className="h-[1px] w-full bg-slate-200"></div>
               <div className="uppercase">Or</div>
               <div className="h-[1px] w-full bg-slate-200"></div>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4">
+            </div> */}
+            {/* <div className="grid grid-cols-1 gap-4">
               <Button
                 onClick={() => signIn("google")}
                 variant={"outline"}
@@ -116,7 +115,7 @@ export default function LoginForm() {
                 <FaGoogle className="mr-2 w-6 h-6 text-red-500" />
                 Login with Google
               </Button>
-            </div>
+            </div> */}
             <p className="mt-6  text-sm text-gray-500">
               Not a Registered ?{" "}
               <Link

@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { QuestionSheet } from './QuestionSheet'
 import { CreateQuestionPopOver } from './question-popup'
 import { QuestionAlertForm } from '../Forms/question-alert-form'
+import { SessionRedirectForm } from '../Forms/session-redirect'
+import toast from 'react-hot-toast'
 // import { CreateQuestionPopOver } from './question-popup'
 // import { QuestionSheet } from './QuestionSheet'
 
@@ -12,7 +14,7 @@ interface QuestionListProps {
   className?: string
 }
 
-export default function QuestionList({ questions,answers}:{questions:any,answers:any}) {
+export default function QuestionList({ session,questions,answers}:{questions:any,answers:any,session:any}) {
 
   function formatDate(dateString: string) {
     const date = new Date(dateString)
@@ -31,8 +33,12 @@ export default function QuestionList({ questions,answers}:{questions:any,answers
     
           {/* <CreateQuestionPopOver/> */}
           {/* <QuestionSheet/> */}
-          <QuestionAlertForm/>
-       
+          {!session ? (
+  <SessionRedirectForm session={session} />
+) : (
+  <QuestionAlertForm/>
+)}
+          
       </div>
       <ul className="space-y-4 overflow-y-scroll max-h-[800px]">
         {questions.map((question:any,i:any) => (
