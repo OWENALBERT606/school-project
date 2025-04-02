@@ -8,9 +8,11 @@
 // import { Category } from "@prisma/client"
 // import { getAllCategories } from "@/actions/categories"
 
+import { getAllCategories } from "@/actions/categories";
 import ArticleList from "@/components/frontend/articles/article-list";
 import CategorySidebar from "@/components/frontend/articles/category-sidebar";
 import SearchBar from "@/components/frontend/articles/search-bar";
+import { Category } from "@prisma/client";
 
 // export default async function Home() {
 //     const categories: Category[] = (await getAllCategories()) || [];
@@ -269,7 +271,8 @@ import SearchBar from "@/components/frontend/articles/search-bar";
 // }
 
 
-export default function KnowledgeBasePage() {
+export default async function KnowledgeBasePage() {
+  const categories: Category[] = (await getAllCategories()) || [];
   return (
     <div className="min-h-screen px-4 md:px-12 lg:px-24 bg-gray-50">
       <header className="bg-white border-b">
@@ -283,7 +286,7 @@ export default function KnowledgeBasePage() {
 
       <main className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-8">
-          <CategorySidebar />
+          <CategorySidebar categories={categories}/>
           <div className="flex-1">
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center justify-between mb-6">

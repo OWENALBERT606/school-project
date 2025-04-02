@@ -84,7 +84,7 @@ export default function ArticleList() {
         {articles.map((article) => (
           <article key={article.id} className="border-b pb-6 last:border-0">
             <div className="flex flex-col md:flex-row gap-4">
-              <div className="md:w-1/4">
+              {/* <div className="md:w-1/4">
                 <Image
                   src={article.image || "/placeholder.svg"}
                   alt={article.title}
@@ -92,7 +92,7 @@ export default function ArticleList() {
                   height={200}
                   className="rounded-lg object-cover w-full h-40"
                 />
-              </div>
+              </div> */}
               <div className="md:w-3/4">
                 <div className="flex flex-wrap gap-2 mb-2">
                   <Badge variant="secondary">{article.category}</Badge>
