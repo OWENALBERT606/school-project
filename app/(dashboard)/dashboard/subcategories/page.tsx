@@ -14,7 +14,7 @@ export default async function page() {
         linkTitle="Add Sub Category"
         href="/dashboard/subcategories/new"
         data={categories}
-        model="sub category"
+        model="subcategory"
       />
       <div className="py-8">
         <DataTable data={categories} columns={columns} />

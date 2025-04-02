@@ -81,11 +81,13 @@ export async function deleteSubCategory(id: string) {
       where: {
         id,
       },
+      
     });
 
     return {
       ok: true,
       data: deletedSubCategory,
+      // revalidatePath("/dashboard/subcategories")
     };
   } catch (error) {
     console.log(error);

@@ -10,8 +10,8 @@ import ImageColumn from "@/components/DataTableColumns/ImageColumn";
 import SortableColumn from "@/components/DataTableColumns/SortableColumn";
 import { ColumnDef } from "@tanstack/react-table";
 import ActionColumn from "@/components/DataTableColumns/ActionColumn";
-import { Category } from "@prisma/client";
-export const columns: ColumnDef<Category>[] = [
+import {SubCategory } from "@prisma/client";
+export const columns: ColumnDef<SubCategory>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -39,8 +39,8 @@ export const columns: ColumnDef<Category>[] = [
     header: ({ column }) => <SortableColumn column={column} title="Title" />,
   },
   {
-    accessorKey: "category.title",
-    header: ({ column }) => <SortableColumn column={column} title="Category" />,
+    accessorKey: "subcategory.title",
+    header: ({ column }) => <SortableColumn column={column} title="Sub Category" />,
   },
   {
     accessorKey: "imageUrl",
@@ -56,13 +56,13 @@ export const columns: ColumnDef<Category>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const category = row.original;
+      const subcategory = row.original;
       return (
         <ActionColumn
           row={row}
-          model="category"
-          editEndpoint={`categories/update/${category.id}`}
-          id={category.id}
+          model="subcategory"
+          editEndpoint={`subcategories/update/${subcategory.id}`}
+          id={subcategory.id}
         />
       );
     },

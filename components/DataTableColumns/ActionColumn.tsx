@@ -25,6 +25,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { deleteUser } from "@/actions/users";
 import { deleteSubCategory } from "@/actions/subcategories";
+import { deleteCategory } from "@/actions/categories";
 
 type ActionColumnProps = {
   row: any;
@@ -55,9 +56,16 @@ export default function ActionColumn({
         }
         toast.success(`${model} Deleted Successfully`);
       }
+      else if (model === "category") {
+        const res = await deleteCategory(id);
+        if (res?.ok) {
+          window.location.reload();
+        }
+        toast.success(`${model} Deleted Successfully`);
+      }
     } catch (error) {
       console.log(error);
-      toast.error("Category Couldn't be deleted");
+      toast.error("model couldn't be deleted");
     }
   }
   return (

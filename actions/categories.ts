@@ -77,6 +77,7 @@ export async function deleteCategory(id: string) {
         id,
       },
     });
+    revalidatePath("/categories"); // Adjust the path to match your page route
 
     return {
       ok: true,

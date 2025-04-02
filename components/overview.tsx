@@ -35,8 +35,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Progress } from "@/components/ui/progress"
+import Link from "next/link"
+import DateColumn from "./DataTableColumns/DateColumn"
+import QaOverView from "./dashboard/qa/qa-overview"
 
-export default function DashboardOverview() {
+export default function DashboardOverview({users,articles,questions}:{users:any,questions:any,articles:any}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
   return (
@@ -135,36 +138,36 @@ export default function DashboardOverview() {
               </TabsList>
               <TabsContent value="overview" className="space-y-4">
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                  <Card className="border-green-100">
+                  <Link href="/dashboard/questions"><Card className="border-green-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">Active Questions</CardTitle>
                       <HelpCircle className="h-4 w-4 text-green-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-green-800">42</div>
-                      <p className="text-xs text-muted-foreground">+8 from last week</p>
+                      <div className="text-2xl font-bold text-green-800">{questions.length}</div>
+                      {/* <p className="text-xs text-muted-foreground">+8 from last week</p> */}
                     </CardContent>
-                  </Card>
-                  <Card className="border-green-100">
+                  </Card></Link>
+                 <Link href="/dashboard/articles"> <Card className="border-green-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">Knowledge Articles</CardTitle>
                       <BookOpen className="h-4 w-4 text-green-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-green-800">156</div>
+                      <div className="text-2xl font-bold text-green-800">{articles.length}</div>
                       <p className="text-xs text-muted-foreground">+12 from last month</p>
                     </CardContent>
-                  </Card>
-                  <Card className="border-green-100">
+                  </Card></Link>
+                 <Link href="/dashboard/users"> <Card className="border-green-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">Community Members</CardTitle>
                       <Users className="h-4 w-4 text-green-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-green-800">1,234</div>
-                      <p className="text-xs text-muted-foreground">+57 from last month</p>
+                      <div className="text-2xl font-bold text-green-800">{users.length}</div>
+                      <p className="text-xs text-muted-foreground">From Community</p>
                     </CardContent>
-                  </Card>
+                  </Card></Link>
                   <Card className="border-green-100">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">Growing Season</CardTitle>
@@ -287,28 +290,25 @@ export default function DashboardOverview() {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
-                        <div className="border-l-4 border-green-500 pl-4 py-1">
-                          <h3 className="font-medium">What's the best way to prevent tomato blight?</h3>
-                          <p className="text-sm text-muted-foreground">Posted by Carlos R. • 2 hours ago • 5 answers</p>
+                      {
+                        questions.slice(1,5).map((item:any)=>{
+                          return(
+                            <div key={item.id} className="border-l-4 border-green-500 pl-4 py-1">
+                          <h3 className="font-medium">{item.title}</h3>
+                          <p className="text-sm text-muted-foreground">Posted by {item.user.name} • <DateColumn row={{ getValue: (key: string) => item.createdAt }} accessorKey="createdAt" /> • {item.answers.length} answers</p>
+                        
                         </div>
-                        <div className="border-l-4 border-green-500 pl-4 py-1">
-                          <h3 className="font-medium">Recommended irrigation systems for small corn fields?</h3>
-                          <p className="text-sm text-muted-foreground">Posted by Amara T. • 5 hours ago • 3 answers</p>
-                        </div>
-                        <div className="border-l-4 border-amber-500 pl-4 py-1">
-                          <h3 className="font-medium">When to harvest winter wheat in Zone 6b?</h3>
-                          <p className="text-sm text-muted-foreground">Posted by James L. • 1 day ago • 8 answers</p>
-                        </div>
-                        <div className="border-l-4 border-green-500 pl-4 py-1">
-                          <h3 className="font-medium">Best cover crops for nitrogen fixation?</h3>
-                          <p className="text-sm text-muted-foreground">Posted by Sophia K. • 2 days ago • 12 answers</p>
-                        </div>
+                          )
+                        })
+                      }
                       </div>
                     </CardContent>
                     <CardFooter>
-                      <Button variant="outline" className="w-full border-green-200 text-green-700 hover:bg-green-50">
+                     <Link href="/dashboard/questions">
+                     <Button variant="outline" className="w-full border-green-200 text-green-700 hover:bg-green-50">
                         View All Questions
                       </Button>
+                     </Link>
                     </CardFooter>
                   </Card>
                   <Card className="border-green-100">
@@ -318,70 +318,36 @@ export default function DashboardOverview() {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
-                        <div className="flex gap-3">
-                          <div className="w-12 h-12 rounded bg-green-100 flex items-center justify-center shrink-0">
-                            <FileText className="w-6 h-6 text-green-600" />
+                       
+                        {
+                        articles.slice(1,5).map((item:any)=>{
+                          return(
+                            <div className="flex gap-3">
+                            <div className="w-12 h-12 rounded bg-green-100 flex items-center justify-center shrink-0">
+                              <FileText className="w-6 h-6 text-green-600" />
+                            </div>
+                            <div>
+                              <h3 className="font-medium">{item.title}</h3>
+                              <p className="text-sm text-muted-foreground">{item.comments.length} comments • Updated <DateColumn row={{ getValue: (key: string) => item.createdAt }} accessorKey="createdAt" /></p>
+                            </div>
                           </div>
-                          <div>
-                            <h3 className="font-medium">Complete Guide to Organic Pest Control</h3>
-                            <p className="text-sm text-muted-foreground">1,245 views • Updated 2 weeks ago</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-3">
-                          <div className="w-12 h-12 rounded bg-green-100 flex items-center justify-center shrink-0">
-                            <FileText className="w-6 h-6 text-green-600" />
-                          </div>
-                          <div>
-                            <h3 className="font-medium">Soil Health: Testing and Improvement Methods</h3>
-                            <p className="text-sm text-muted-foreground">982 views • Updated 1 month ago</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-3">
-                          <div className="w-12 h-12 rounded bg-green-100 flex items-center justify-center shrink-0">
-                            <FileText className="w-6 h-6 text-green-600" />
-                          </div>
-                          <div>
-                            <h3 className="font-medium">Seasonal Planting Calendar for Zone 6</h3>
-                            <p className="text-sm text-muted-foreground">876 views • Updated 3 weeks ago</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-3">
-                          <div className="w-12 h-12 rounded bg-green-100 flex items-center justify-center shrink-0">
-                            <FileText className="w-6 h-6 text-green-600" />
-                          </div>
-                          <div>
-                            <h3 className="font-medium">Water Conservation Techniques for Dry Seasons</h3>
-                            <p className="text-sm text-muted-foreground">754 views • Updated 1 month ago</p>
-                          </div>
-                        </div>
+                          )
+                        })
+                      }
                       </div>
                     </CardContent>
                     <CardFooter>
-                      <Button variant="outline" className="w-full border-green-200 text-green-700 hover:bg-green-50">
+                     <Link href="/dashboard/articles">
+                     <Button variant="outline" className="w-full border-green-200 text-green-700 hover:bg-green-50">
                         Browse Knowledge Base
                       </Button>
+                     </Link>
                     </CardFooter>
                   </Card>
                 </div>
               </TabsContent>
               <TabsContent value="qa" className="space-y-4">
-                <Card className="border-green-100">
-                  <CardHeader>
-                    <CardTitle>Q&A Platform</CardTitle>
-                    <CardDescription>Ask and answer questions about agricultural practices</CardDescription>
-                  </CardHeader>
-                  <CardContent className="h-[450px] flex items-center justify-center">
-                    <div className="text-center">
-                      <HelpCircle className="mx-auto h-12 w-12 text-green-600 mb-4" />
-                      <h3 className="text-lg font-medium mb-2">Q&A Platform Content</h3>
-                      <p className="text-muted-foreground max-w-md">
-                        This tab would contain the full Q&A platform interface with question listings, filtering
-                        options, and the ability to ask new questions.
-                      </p>
-                      <Button className="mt-4 bg-green-600 hover:bg-green-700">Ask a Question</Button>
-                    </div>
-                  </CardContent>
-                </Card>
+               <QaOverView/>
               </TabsContent>
               <TabsContent value="knowledge" className="space-y-4">
                 <Card className="border-green-100">
