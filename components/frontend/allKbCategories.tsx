@@ -6,15 +6,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 
 
-export default function KbCategories({categories}:{categories:any}) {
+export default function AllKbCategories({categories}:{categories:any}) {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">
-        <h2 className="text-green-900 font-bold text-xl md:text-3xl">Explore Categories</h2>
         <section className="w-full py-12">
           <div className="">
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {categories.slice(0,6).map((category:any,i:any) => (
+              {categories.map((category:any,i:any) => (
                 <div className="" key={category.id}>
                   <Card
                   key={category.id}
@@ -74,7 +73,6 @@ export default function KbCategories({categories}:{categories:any}) {
           </div>
          
         </section>
-        <Link href="/kb/categories" className="text-white  mt-[80rem] font-bold px-6 py-2 rounded-xl text-lg bg-green-900 ">View all categories</Link>
       </main>
     </div>
   )
