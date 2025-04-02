@@ -56,8 +56,8 @@ export default function AllKbCategories({categories}:{categories:any}) {
                     {category.subcategories.length > 0 && (
                       <div className="mt-2 text-right">
                         <Button variant="link" size="sm" asChild className="h-auto p-0">
-                          <Link href={`/kb/${category.id}`}>
-                            View all {category.subcategories.length} subcategories
+                          <Link href={`/kb/category/${category.id}`}>
+                            View all articles
                           </Link>
                         </Button>
                       </div>
