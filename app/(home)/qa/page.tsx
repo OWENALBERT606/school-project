@@ -6,17 +6,23 @@
 import MainSidebar from "@/components/frontend/main-sidebar";
 import QuestionList from "../../../components/frontend/question-list";
 import QaHero from "@/components/frontend/qa-hero";
-import { AnswerProps, QuestionProps } from "@/types/types";
+import { AnswerProps, QuestionProps, UserProps } from "@/types/types";
 import { getAllQuestions } from "@/actions/questions";
 import { getAllAnswers } from "@/actions/answers";
 import RightSidebar from "@/components/frontend/right-sidebar";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/config/auth";
+import { getAllUsers } from "@/actions/users";
+import { getAllArticles } from "@/actions/article";
+import { getAllDiscussions } from "@/actions/discussions";
 
 
 
 export default async function Home() {
   const questions: QuestionProps[] = (await getAllQuestions()) || [];
+  const users: any[] = (await getAllUsers()) || [];
+  const discussions: any[] = (await getAllDiscussions()) || [];
+  const articles: any[] = (await getAllArticles()) || [];
   const answers: AnswerProps[] = (await getAllAnswers()) || [];
   const session = await getServerSession(authOptions);
   return (
@@ -31,7 +37,7 @@ export default async function Home() {
           <div className="flex-grow overflow-y-auto">
             <QuestionList session={session} questions={questions} answers={answers}/>
           </div>
-          <RightSidebar className="w-full lg:w-80 shrink-0 overflow-y-auto lg:sticky lg:top-8" />
+          <RightSidebar discussions={discussions} articles={articles} answers={answers} questions={questions} users={users} className="w-full lg:w-80 shrink-0 overflow-y-auto lg:sticky lg:top-8" />
         </div>
       </main>
     </div>
