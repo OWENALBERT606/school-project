@@ -18,13 +18,13 @@ export default async function ArticlePage({params}: {params: Promise<{ id: strin
     (q) => q.categoryId === article?.categoryId && q.id !== article.id
   );
           const session = await getServerSession(authOptions);
-          const filteredArticles = articles.filter((item: any) => item.discussionId === discussion.id);
-  console.log(filteredResponses);
+  //         const filteredArticles = articles.filter((item: any) => item.discussionId === discussion.id);
+  // console.log(filteredResponses);
 
   
-      if (!discussion) {
-        return <div className="p-4 text-center">Discussion not found</div>;
-      }
+      // if (!discussion) {
+      //   return <div className="p-4 text-center">Discussion not found</div>;
+      // }
 
   return (
     <div className="min-h-screen px-4 md:px-12 lg:px-24 bg-slate-50">
@@ -33,10 +33,10 @@ export default async function ArticlePage({params}: {params: Promise<{ id: strin
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 overflow-y-scroll h-[600px]">
-            <DiscussionDetail responses={filteredResponses} session={session} discussion={discussion}/>
+            {/* <DiscussionDetail responses={filteredResponses} session={session} discussion={discussion}/> */}
           </div>
           <div className="hidden lg:block">
-            <div className="bg-white rounded-lg shadow p-6">
+            {/* <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-xl font-semibold mb-4">About the Author</h2>
               <div className="flex items-center gap-3 mb-4">
                 <img
@@ -52,8 +52,8 @@ export default async function ArticlePage({params}: {params: Promise<{ id: strin
               <p className="text-muted-foreground text-sm">
                 {discussion.user.bio}
               </p>
-            </div>
-            <RelatedDiscussions relatedDiscussion={relatedDiscussions}/>
+            </div> */}
+            {/* <RelatedDiscussions relatedDiscussion={relatedDiscussions}/> */}
           </div>
         </div>
       </main>
