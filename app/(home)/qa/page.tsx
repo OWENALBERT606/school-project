@@ -19,11 +19,6 @@ export default async function Home() {
   const questions: QuestionProps[] = (await getAllQuestions()) || [];
   const answers: AnswerProps[] = (await getAllAnswers()) || [];
   const session = await getServerSession(authOptions);
-    // if (!session) {
-    //   redirect("/login");
-    // }
-
-  // console.log(questions);
   return (
   <div className="">
     <div className="bg-[url(/img/mountains.jpg)]">

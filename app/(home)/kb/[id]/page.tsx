@@ -1,22 +1,24 @@
+import { getAllArticles, getArticleById } from "@/actions/article";
+import { getAllComments } from "@/actions/comments";
 import { getAllDiscussions, getDiscussionById } from "@/actions/discussions";
 import { getAllResponses } from "@/actions/responses";
 import { DiscussionDetail } from "@/components/frontend/discussions/discussion-details";
 import RelatedDiscussions from "@/components/frontend/discussions/related-discussions";
 import { authOptions } from "@/config/auth";
 import { DiscussionProps, ResponseProps } from "@/types/types";
-import { Discussion, Response } from "@prisma/client";
+import { Article, Comment, Discussion, Response } from "@prisma/client";
 import { getServerSession } from "next-auth";
 
-export default async function DiscussionPage({params}: {params: Promise<{ id: string }>}):Promise<any> {
+export default async function ArticlePage({params}: {params: Promise<{ id: string }>}):Promise<any> {
   const {id}= await params;
-  const discussion: any= await getDiscussionById(id);
-  const discussions: Discussion[] = (await getAllDiscussions()) || [];
-  const responses: Response[] = (await getAllResponses()) || [];
-  const relatedDiscussions = discussions.filter(
-    (q) => q.topicId === discussion?.topicId && q.id !== discussion.id
+  const article: any= await getArticleById(id);
+  const articles: Article[] = (await getAllArticles()) || [];
+  const comments: Comment[] = (await getAllComments()) || [];
+  const relatedArticles = articles.filter(
+    (q) => q.categoryId === article?.categoryId && q.id !== article.id
   );
           const session = await getServerSession(authOptions);
-          const filteredResponses = responses.filter((item: any) => item.discussionId === discussion.id);
+          const filteredArticles = articles.filter((item: any) => item.discussionId === discussion.id);
   console.log(filteredResponses);
 
   

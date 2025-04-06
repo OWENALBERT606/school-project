@@ -96,7 +96,7 @@ export default function CategorySidebar({categories}:{categories:any}) {
   }
 
   return (
-    <div className="w-full md:w-80 bg-white rounded-lg shadow p-4 mb-6 md:mb-0 h-fit">
+    <div className="w-full h-[800px] md:w-80 bg-white rounded-lg shadow p-4 mb-6 md:mb-0 overflow-y-scroll">
       <h3 className="font-medium text-lg mb-4">Categories</h3>
       <ul className="space-y-1">
         {categories.map((category:any) => (

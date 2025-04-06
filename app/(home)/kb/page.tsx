@@ -8,11 +8,12 @@
 // import { Category } from "@prisma/client"
 // import { getAllCategories } from "@/actions/categories"
 
+import { getAllArticles } from "@/actions/article";
 import { getAllCategories } from "@/actions/categories";
 import ArticleList from "@/components/frontend/articles/article-list";
 import CategorySidebar from "@/components/frontend/articles/category-sidebar";
 import SearchBar from "@/components/frontend/articles/search-bar";
-import { Category } from "@prisma/client";
+import { Article, Category } from "@prisma/client";
 
 // export default async function Home() {
 //     const categories: Category[] = (await getAllCategories()) || [];
@@ -273,6 +274,7 @@ import { Category } from "@prisma/client";
 
 export default async function KnowledgeBasePage() {
   const categories: Category[] = (await getAllCategories()) || [];
+  const articles:   Article[] = (await getAllArticles()) || [];
   return (
     <div className="min-h-screen px-4 md:px-12 lg:px-24 bg-gray-50">
       <header className="bg-white border-b">
@@ -290,7 +292,7 @@ export default async function KnowledgeBasePage() {
           <div className="flex-1">
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold">Agricultural Articles</h2>
+                <h2 className="text-xl font-semibold">All Articles</h2>
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-500">Sort by:</span>
                   <select className="text-sm border rounded-md px-2 py-1">
@@ -300,7 +302,8 @@ export default async function KnowledgeBasePage() {
                   </select>
                 </div>
               </div>
-              <ArticleList />
+              <div className=""><ArticleList articles={articles} /></div>
+              
             </div>
           </div>
         </div>

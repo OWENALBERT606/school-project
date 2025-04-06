@@ -77,13 +77,13 @@ export default function QuestionList({ session,questions,answers}:{questions:any
                    <div>
                    <span className="flex items-center text-green-900">
                       <LeafyGreen size={16} className="mr-1" />
-                      {question.category.title} answers
+                      {question.category.title}
                     </span>
                    </div>
                    <div>
                    <span className="flex items-center">
                       <List size={16} className="mr-1" />
-                      {question.subcategory.title} answers
+                      {question.subcategory.title}
                     </span>
                    </div>
                    <Link href={`/qa/${question.id}`}>

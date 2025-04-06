@@ -67,6 +67,11 @@ export type UserProps = {
   email: string;
   password: string;
 };
+export type CommentProps = {
+  content: string;
+  articleId: string;
+  userId: string;
+};
 export type LoginProps = {
   email: string;
   password: string;
