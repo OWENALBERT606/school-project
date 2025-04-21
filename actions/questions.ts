@@ -64,6 +64,7 @@ export async function getQuestionById(id: string) {
       user:true,
       category:true,
       subcategory:true,
+      views:true,
       answers:true
     }
     });
@@ -125,131 +126,44 @@ export async function getTrendingQuestions() {
     return null;
   }
 }
+export async function incrementQuestionView(questionId: string, userId: string) {
+  // First, check if this user has already viewed this question
+  const existingView = await db.questionView.findUnique({
+    where: {
+      questionId_userId: {
+        questionId,
+        userId,
+      },
+    },
+  });
 
+  // If the user hasn't viewed this question before, create a new view record
+  if (!existingView) {
+    await db.questionView.create({
+      data: {
+        question: {
+          connect: { id: questionId },
+        },
+        user: {
+          connect: { id: userId },
+        },
+      },
+    });
+  }
 
-// update star count
-// export async function incrementQuestionViews(id: string) {
-//   try {
-//     const session = await authOptions();
+  // Return the question with the updated view count
+  const question = await db.question.findUnique({
+    where: { id: questionId },
+    include: {
+      _count: {
+        select: {
+          views: true, // This gives us the count of views
+        },
+      },
+    },
+  });
 
-//     if (!session?.user?.id) {
-//       return { success: false, message: "Not authenticated" };
-//     }
-
-//     const userId = session.user.id;
-    
-//     // Check if the user has already starred this question
-//     const existingStar = await db.questionView.findUnique({
-//       where: {
-//         questionId_userId: {
-//           questionId: id,
-//           userId: userId,
-//         },
-//       },
-//     });
-
-//     // If user has already starred, return early without incrementing
-//     if (existingStar) {
-//       return { success: false, alreadyStarred: true, message: "You have already starred this question" };
-//     }
-
-//     // Create a transaction to ensure both operations succeed or fail together
-//     const result = await db.$transaction(async (tx) => {
-//       // Create the star record for this user
-//       await tx.questionView.create({
-//         data: {
-//           questionId: id,
-//           userId: userId,
-//         },
-//       });
-
-//       // Increment the stars count on the question
-//       const updatedQuestion = await tx.question.update({
-//         where: { id },
-//         data: { 
-//           views: { increment: 1 } 
-//         },
-//       });
-
-//       return updatedQuestion;
-//     });
-
-//     // Revalidate the paths
-//     revalidatePath("/");
-//     revalidatePath(`/qa/${id}`);
-    
-//     return { success: true, data: result };
-//   } catch (error) {
-//     console.error("Error updating stars:", error);
-//     return { success: false, message: "Failed to update stars" };
-//   }
-// }
-
-// // Helper function to check if a user has already starred a question
-// export async function hasUserStarredQuestion(questionId: string) {
-//   try {
-//     const session = await auth();
-    
-//     if (!session?.user?.id) {
-//       return false;
-//     }
-
-//     const userId = session.user.id;
-    
-//     const existingStar = await db.questionStar.findUnique({
-//       where: {
-//         questionId_userId: {
-//           questionId,
-//           userId,
-//         },
-//       },
-//     });
-
-//     return !!existingStar;
-//   } catch (error) {
-//     console.error("Error checking star status:", error);
-//     return false;
-//   }
-// }
-
-// // Function to get starred status for multiple questions
-// export async function getStarredStatusForQuestions(questionIds: string[]) {
-//   try {
-//     const session = await auth();
-    
-//     if (!session?.user?.id) {
-//       return {};
-//     }
-
-//     const userId = session.user.id;
-    
-//     const stars = await db.questionStar.findMany({
-//       where: {
-//         userId: userId,
-//         questionId: {
-//           in: questionIds
-//         }
-//       },
-//       select: {
-//         questionId: true
-//       }
-//     });
-
-//     // Create a map of questionId -> starred status
-//     const starredMap: Record<string, boolean> = {};
-//     questionIds.forEach(id => {
-//       starredMap[id] = false;
-//     });
-    
-//     stars.forEach(star => {
-//       starredMap[star.questionId] = true;
-//     });
-
-//     return starredMap;
-//   } catch (error) {
-//     console.error("Error getting starred statuses:", error);
-//     return {};
-//   }
-// }
+  return question;
+}
 
 

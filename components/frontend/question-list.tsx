@@ -1,22 +1,17 @@
 
-
-import { Button } from '@/components/ui/button'
-import { ArrowUp, ArrowDown, MessageSquare, Eye, Clock, Star, LeafyGreen, List } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+"use client"
+import {  MessageSquare, Eye, Clock,LeafyGreen, List } from 'lucide-react'
+import { Avatar, AvatarImage} from '@/components/ui/avatar'
 import Link from 'next/link'
-import { QuestionSheet } from './QuestionSheet'
-import { CreateQuestionPopOver } from './question-popup'
+import { incrementQuestionView } from '@/actions/questions'
+import { useRouter } from 'next/navigation'
 import { QuestionAlertForm } from '../Forms/question-alert-form'
 import { SessionRedirectForm } from '../Forms/session-redirect'
-import toast from 'react-hot-toast'
-// import { CreateQuestionPopOver } from './question-popup'
-// import { QuestionSheet } from './QuestionSheet'
 
-interface QuestionListProps {
-  className?: string
-}
+
 
 export default function QuestionList({ session,questions,answers}:{questions:any,answers:any,session:any}) {
+  const router=useRouter();
 
   function formatDate(dateString: string) {
     const date = new Date(dateString)
@@ -27,14 +22,26 @@ export default function QuestionList({ session,questions,answers}:{questions:any
       minute: '2-digit'
     })
   }
+  const handleQuestionClick = async (e: React.MouseEvent<HTMLAnchorElement>, questionId: string) => {
+    
+    if (session?.user?.id) {
+      e.preventDefault(); 
+      
+      try {
+        // Increment the view count
+        await incrementQuestionView(questionId, session.user.id);
+        router.push(`/qa/${questionId}`);
+      } catch (error) {
+        router.push(`/qa/${questionId}`);
+      }
+    }
+
+  };
 
   return (
     <div className="space-y-6 py-6">
       <div className="flex justify-between items-center sticky top-0  dark:from-gray-900 dark:to-gray-800 py-4 z-10">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Top Questions</h2>
-    
-          {/* <CreateQuestionPopOver/> */}
-          {/* <QuestionSheet/> */}
           {!session ? (
   <SessionRedirectForm session={session} />
 ) : (
@@ -49,7 +56,7 @@ export default function QuestionList({ session,questions,answers}:{questions:any
               
               <div className="flex-grow">
                 <h3 className="text-xl font-semibold text-green-900 dark:text-green-400 mb-2">
-                  <Link href={`/qa/${question.id}`} className="hover:underline">{question.title}</Link>
+                  <Link href={`/qa/${question.id}`} onClick={(e) => session && handleQuestionClick(e, question.id)} className="hover:underline">{question.title}</Link>
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">{question.content}</p>
                 <div className="space-y-4">

@@ -1,9 +1,8 @@
-'use client'
+
 import { useState } from 'react'
-import { ChevronUp, ChevronDown, Star, MessageSquare, ArrowDownUp, Eye, ThumbsUp, ThumbsDown } from 'lucide-react'
+import { MessageSquare, ArrowDownUp, Eye, ThumbsUp, ThumbsDown } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import {
   Select,
@@ -12,22 +11,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Separator } from "@/components/ui/separator"
-// import TextArea from '../backend/dashboard/FormInputs/TextAreaInput'
 import { useForm } from 'react-hook-form'
-// import { incrementUpVotes } from '@/lib/increament'
 import CreateAnswerForm from './CreateAnswerForm'
 import RelatedQuestions from './related-questions'
-// import RelatedQuestions from './related-questions'
 
 export default function QuestionDetail({question,relatedQuestion,answers,session}:{question:any,relatedQuestion:any,answers:any,session:any}) {
- 
-  const [sortBy, setSortBy] = useState('votes');
-
-   const [loading, setLoading] = useState(false);
-      const { register,watch, handleSubmit, reset, formState: { errors } } = useForm({
-       
-      });
 
       const date = new Date(question.createdAt);
       const options = { year: "numeric", month: "long", day: "numeric" };
@@ -72,7 +60,7 @@ export default function QuestionDetail({question,relatedQuestion,answers,session
                 </div>
                 <div className="flex items-center gap-1">
                   <Eye className="h-4 w-4" />
-                  <span>{question.stars} views</span>
+                  <span>{question.views.length} views</span>
                 </div>
               </div>
             </div>
@@ -84,16 +72,6 @@ export default function QuestionDetail({question,relatedQuestion,answers,session
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">{answers.length} Answers</h2>
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="votes">Most Votes</SelectItem>
-              <SelectItem value="recent">Most Recent</SelectItem>
-              <SelectItem value="oldest">Oldest</SelectItem>
-            </SelectContent>
-          </Select>
         </div>
 
         {/* Answer Form */}
