@@ -16,7 +16,6 @@ export type SubCategoryProps = {
 export type QuestionProps = {
 title:  string;
 content:string;
-stars?:number;
 userId:string;
 categoryId:string;
 subcategoryId:string

@@ -4,6 +4,7 @@ import { getAllArticles, getTrendingArticles } from "@/actions/article";
 import { getAllDiscussions, getTrendingDiscussions } from "@/actions/discussions";
 import { getAllQuestions, getTrendingQuestions } from "@/actions/questions";
 import { getAllUsers } from "@/actions/users";
+import { QuestionAlertForm } from "@/components/Forms/question-alert-form";
 import FAQSection from "@/components/frontend/faq copy";
 import AgricultureFeatures from "@/components/frontend/features copy";
 import Hero from "@/components/frontend/hero";
@@ -33,6 +34,7 @@ export default async function Home() {
       <QuickAccess/>
       <QuickLinks/>
       <AgricultureFeatures/>
+      {/* <QuestionAlertForm/> */}
       <FAQSection/>
       <NewsletterSubscription/>
     </div>

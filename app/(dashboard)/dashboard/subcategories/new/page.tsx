@@ -6,6 +6,7 @@ import React from "react";
 export default async function page() {
   const categoriesData: Category[] = (await getAllCategories()) || [];
 
+
   const categories= categoriesData.map((item:any,i:any)=>{
     return(
       {

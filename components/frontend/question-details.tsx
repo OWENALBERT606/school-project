@@ -1,7 +1,6 @@
 'use client'
-
 import { useState } from 'react'
-import { ChevronUp, ChevronDown, Star, MessageSquare, ArrowDownUp } from 'lucide-react'
+import { ChevronUp, ChevronDown, Star, MessageSquare, ArrowDownUp, Eye, ThumbsUp, ThumbsDown } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -72,8 +71,8 @@ export default function QuestionDetail({question,relatedQuestion,answers,session
                   <span>{answers.length} answers</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Star className="h-4 w-4" />
-                  <span>{question.stars} stars</span>
+                  <Eye className="h-4 w-4" />
+                  <span>{question.stars} views</span>
                 </div>
               </div>
             </div>
@@ -109,16 +108,6 @@ export default function QuestionDetail({question,relatedQuestion,answers,session
                 <Card key={item.id}>
             <CardContent className="p-4">
               <div className="flex gap-4">
-                <div className="flex flex-col items-center gap-1">
-                  {/* <Button 
-                  onClick={() => incrementUpVotes(item.id)} variant="ghost" size="icon" className="h-8 w-8">
-                    <ChevronUp className="h-4 w-4" />
-                  </Button> */}
-                  <span className="font-medium">{item.upVotes}</span>
-                  <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <ChevronDown className="h-4 w-4" />
-                  </Button>
-                </div>
                 <div className="flex-1 space-y-4">
                   <p>
                     {item.content}
@@ -132,6 +121,10 @@ export default function QuestionDetail({question,relatedQuestion,answers,session
                       <span>Answered by {item.user.name}</span>
                     </div>
                     <span className="text-muted-foreground">{formatDate(item.createdAt)}</span>
+                    <span className='flex space-x-3 justify-center items-center'>
+                     <button className="flex text-green-900 justify-center items-center space-x-1"> <ThumbsUp/> 23</button>
+                     <button className="flex text-green-900 justify-center items-center space-x-1"> <ThumbsDown/> 23</button>
+                    </span>
                   </div>
                 </div>
               </div>

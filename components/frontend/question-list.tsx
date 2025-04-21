@@ -1,3 +1,5 @@
+
+
 import { Button } from '@/components/ui/button'
 import { ArrowUp, ArrowDown, MessageSquare, Eye, Clock, Star, LeafyGreen, List } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -67,8 +69,8 @@ export default function QuestionList({ session,questions,answers}:{questions:any
                         {formatDate(question.createdAt)}
                       </div>
                       <span className="flex items-center">
-                      <Star size={16} className="mr-1" /> 
-                      {question.stars} stars
+                      <Eye size={16} className="mr-1" /> 
+                      {question.views.length} views
                     </span>
                     </div>
                   </div>
@@ -103,7 +105,6 @@ export default function QuestionList({ session,questions,answers}:{questions:any
     </div>
   )
 }
-
 
 
 
