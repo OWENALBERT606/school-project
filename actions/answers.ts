@@ -27,7 +27,10 @@ export async function getAllAnswers() {
       },
       include:{
        user:true,
-       question:true
+       question:true,
+      //  votes: {
+      //   where: { userId: user.id },
+      // },
       }
     });
 
@@ -76,5 +79,111 @@ export async function deleteAnswer(id: string) {
     };
   } catch (error) {
     console.log(error);
+  }
+}
+
+type VoteType = 'UP' | 'DOWN'
+
+export async function voteOnAnswer({
+  answerId,
+  userId,
+  type,
+}: {
+  answerId: string
+  userId: string
+  type: VoteType
+}) {
+  const existingVote = await db.vote.findUnique({
+    where: {
+      userId_answerId: { userId, answerId },
+    },
+  })
+
+  let currentVoteType: VoteType | null = null
+
+  if (!existingVote) {
+    // Create new vote
+    await db.vote.create({
+      data: {
+        userId,
+        answerId,
+        type,
+      },
+    })
+    if (type === 'UP') {
+      await db.answer.update({
+        where: { id: answerId },
+        data: { upVotes: { increment: 1 } },
+      })
+    } else {
+      await db.answer.update({
+        where: { id: answerId },
+        data: { downVotes: { increment: 1 } },
+      })
+    }
+    currentVoteType = type
+  } else if (existingVote.type === type) {
+    // Remove vote (toggle off)
+    await db.vote.delete({
+      where: {
+        userId_answerId: { userId, answerId },
+      },
+    })
+    if (type === 'UP') {
+      await db.answer.update({
+        where: { id: answerId },
+        data: { upVotes: { decrement: 1 } },
+      })
+    } else {
+      await db.answer.update({
+        where: { id: answerId },
+        data: { downVotes: { decrement: 1 } },
+      })
+    }
+    currentVoteType = null
+  } else {
+    // Switch vote (from UP to DOWN or vice versa)
+    await db.vote.update({
+      where: {
+        userId_answerId: { userId, answerId },
+      },
+      data: { type },
+    })
+    if (type === 'UP') {
+      await db.answer.update({
+        where: { id: answerId },
+        data: {
+          upVotes: { increment: 1 },
+          downVotes: { decrement: 1 },
+        },
+      })
+    } else {
+      await db.answer.update({
+        where: { id: answerId },
+        data: {
+          upVotes: { decrement: 1 },
+          downVotes: { increment: 1 },
+        },
+      })
+    }
+    currentVoteType = type
+  }
+
+  // Optional: Revalidate cache if needed
+  revalidatePath(`/question/${answerId}`)
+
+  // Return updated vote state
+  const updated = await db.answer.findUnique({
+    where: { id: answerId },
+    select: {
+      upVotes: true,
+      downVotes: true,
+    },
+  })
+
+  return {
+    upVotes: updated?.upVotes ?? 0,
+    downVotes: updated?.downVotes ?? 0,
+    currentVoteType,
   }
 }

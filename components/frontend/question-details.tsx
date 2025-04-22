@@ -14,6 +14,7 @@ import {
 import { useForm } from 'react-hook-form'
 import CreateAnswerForm from './CreateAnswerForm'
 import RelatedQuestions from './related-questions'
+import AnswerListing from './answer-listing'
 
 export default function QuestionDetail({question,relatedQuestion,answers,session}:{question:any,relatedQuestion:any,answers:any,session:any}) {
 
@@ -24,12 +25,10 @@ export default function QuestionDetail({question,relatedQuestion,answers,session
       const formatDate = (date:any) => {
         return new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
       };
-
-  
   return (
     <div className="flex py-6 w-100% px-4 md:px-12 lg:px-24 ">
        <div className="container w-60% h-[900px] overflow-y-auto col-span-8 py-4 space-y-8 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-      {/* Question Card */}
+      {/* Question Card */} 
       <Card>
         <CardHeader className="flex flex-row gap-4 space-y-0">
           <div className="flex-1 space-y-4">
@@ -79,38 +78,7 @@ export default function QuestionDetail({question,relatedQuestion,answers,session
 
         {/* Answer List */}
         <div className="space-y-4">
-          {/* Sample Answer */}
-          {
-            answers.map((item:any,i:any)=>{
-              return(
-                <Card key={item.id}>
-            <CardContent className="p-4">
-              <div className="flex gap-4">
-                <div className="flex-1 space-y-4">
-                  <p>
-                    {item.content}
-                  </p>
-                  <div className="flex items-center gap-4 text-sm">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="h-6 w-6">
-                        <AvatarImage src={item.user.image} />
-                        <AvatarFallback>AS</AvatarFallback>
-                      </Avatar>
-                      <span>Answered by {item.user.name}</span>
-                    </div>
-                    <span className="text-muted-foreground">{formatDate(item.createdAt)}</span>
-                    <span className='flex space-x-3 justify-center items-center'>
-                     <button className="flex text-green-900 justify-center items-center space-x-1"> <ThumbsUp/> 23</button>
-                     <button className="flex text-green-900 justify-center items-center space-x-1"> <ThumbsDown/> 23</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-              )
-            })
-          }
+         <AnswerListing session={session} answers={answers}/>
 
          
         </div>
