@@ -23,7 +23,7 @@ export default function Logo({
           </span>
         </div>
         <span className={cn(" font-bold text-xl", size === "lg" && "text-4xl")}>
-          ADE {full && <span className="text-green-600">Pro</span>}
+          ADE {full && <span className="text-green-600"></span>}
         </span>
       </Link>
     );
