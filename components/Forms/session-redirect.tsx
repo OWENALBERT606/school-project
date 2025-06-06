@@ -38,7 +38,7 @@ export function SessionRedirectForm({ session }: { session: any }) {
       {/* Dialog */}
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent className="!w-[800px]">
-          <AskQuestionForm/>
+          <AskQuestionForm session={session}/>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
         </AlertDialogContent>
       </AlertDialog>
