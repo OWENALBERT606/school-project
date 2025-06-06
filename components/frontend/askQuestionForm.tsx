@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 import React from "react";
 import FrontQuestionForm from "../Forms/front-question-form";
 
-export default async function AskQuestionForm() {
+export default async function AskQuestionForm({session}:{session:any}) {
   const categoriesData: Category[] = (await getAllCategories()) || [];
   const subcategoriesData: SubCategory[] = (await getAllSubCategories()) || [];
 
@@ -29,7 +29,7 @@ export default async function AskQuestionForm() {
     )
   })
 
-  const session = await getServerSession(authOptions);
+
 
 
   return (

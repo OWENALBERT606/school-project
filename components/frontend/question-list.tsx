@@ -3,15 +3,30 @@
 import {  MessageSquare, Eye, Clock,LeafyGreen, List } from 'lucide-react'
 import { Avatar, AvatarImage} from '@/components/ui/avatar'
 import Link from 'next/link'
-import { incrementQuestionView } from '@/actions/questions'
+// import { incrementQuestionView } from '@/actions/questions'
 import { useRouter } from 'next/navigation'
 import { QuestionAlertForm } from '../Forms/question-alert-form'
 import { SessionRedirectForm } from '../Forms/session-redirect'
+import FrontQuestionForm from '../Forms/front-question-form'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button";
 
 
 
-export default function QuestionList({ session,questions,answers}:{questions:any,answers:any,session:any}) {
+
+export default function QuestionList({ session,questions,answers,subcategories,categories}:{questions:any,answers:any,session:any,categories:any,subcategories:any}) {
   const router=useRouter();
+  const userSession=session
 
   function formatDate(dateString: string) {
     const date = new Date(dateString)
@@ -22,21 +37,42 @@ export default function QuestionList({ session,questions,answers}:{questions:any
       minute: '2-digit'
     })
   }
-  const handleQuestionClick = async (e: React.MouseEvent<HTMLAnchorElement>, questionId: string) => {
-    
-    if (session?.user?.id) {
-      e.preventDefault(); 
-      
-      try {
-        // Increment the view count
-        await incrementQuestionView(questionId, session.user.id);
-        router.push(`/qa/${questionId}`);
-      } catch (error) {
-        router.push(`/qa/${questionId}`);
-      }
-    }
 
-  };
+  
+//   const handleQuestionClick = async (e: React.MouseEvent<HTMLAnchorElement>, questionId: string) => {
+//   if (session?.user?.id) {
+//     e.preventDefault();
+//     try {
+//       // await fetch("/api/questions/view", {
+//       //   method: "POST",
+//       //   body: JSON.stringify({ questionId, userId: session.user.id }),
+//       //   headers: {
+//       //     "Content-Type": "application/json"
+//       //   }
+//       // });
+//     } catch (error) {
+//       // handle error silently or show toast
+//     } finally {
+//       router.push(`/qa/${questionId}`);
+//     }
+//   }
+// };
+
+  // const handleQuestionClick = async (e: React.MouseEvent<HTMLAnchorElement>, questionId: string) => {
+    
+  //   if (session?.user?.id) {
+  //     e.preventDefault(); 
+      
+  //     try {
+  //       // Increment the view count
+  //       await incrementQuestionView(questionId, session.user.id);
+  //       router.push(`/qa/${questionId}`);
+  //     } catch (error) {
+  //       router.push(`/qa/${questionId}`);
+  //     }
+  //   }
+
+  // };
 
   return (
     <div className="space-y-6 py-6">
@@ -45,7 +81,16 @@ export default function QuestionList({ session,questions,answers}:{questions:any
           {!session ? (
   <SessionRedirectForm session={session} />
 ) : (
-  <QuestionAlertForm/>
+      <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button variant="outline" className="bg-green-900 hover:bg-green-600 text-white">Post Question</Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="!w-[800px]">
+                    <FrontQuestionForm session={session} subcategories={subcategories} categories={categories} />
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                     
+                    </AlertDialogContent>
+                  </AlertDialog>
 )}
           
       </div>
@@ -56,7 +101,7 @@ export default function QuestionList({ session,questions,answers}:{questions:any
               
               <div className="flex-grow">
                 <h3 className="text-xl font-semibold text-green-900 dark:text-green-400 mb-2">
-                  <Link href={`/qa/${question.id}`} onClick={(e) => session && handleQuestionClick(e, question.id)} className="hover:underline">{question.title}</Link>
+                  {/* <Link href={`/qa/${question.id}`} onClick={(e) => session && handleQuestionClick(e, question.id)} className="hover:underline">{question.title}</Link> */}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">{question.content}</p>
                 <div className="space-y-4">

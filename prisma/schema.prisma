@@ -173,7 +173,7 @@ model Question {
   // views      Int @default(0)
   views     QuestionView[]
   user       User      @relation(fields: [userId], references: [id],onDelete: Cascade)
-  userId     String @unique
+  userId     String 
   category   Category @relation(fields: [categoryId], references: [id],onDelete: Cascade)
   categoryId    String
   subcategory   SubCategory @relation(fields: [subcategoryId], references: [id],onDelete:  Cascade)

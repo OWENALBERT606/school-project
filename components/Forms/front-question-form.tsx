@@ -130,7 +130,7 @@ export default function FrontQuestionForm({
               />
                   <FormSelectInput
                 label="Sub Category"
-                options={categories}
+                options={subcategories}
                 option={selectedSubCategory}
                 setOption={setSelectedSubCategory}
               />
