@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { QuestionAlertForm } from '../Forms/question-alert-form'
 import { SessionRedirectForm } from '../Forms/session-redirect'
 import FrontQuestionForm from '../Forms/front-question-form'
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -20,6 +21,7 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button";
+import { incrementQuestionView } from '@/actions/questions'
 
 
 
@@ -58,21 +60,21 @@ export default function QuestionList({ session,questions,answers,subcategories,c
 //   }
 // };
 
-  // const handleQuestionClick = async (e: React.MouseEvent<HTMLAnchorElement>, questionId: string) => {
+  const handleQuestionClick = async (e: React.MouseEvent<HTMLAnchorElement>, questionId: string) => {
     
-  //   if (session?.user?.id) {
-  //     e.preventDefault(); 
+    if (session?.user?.id) {
+      e.preventDefault(); 
       
-  //     try {
-  //       // Increment the view count
-  //       await incrementQuestionView(questionId, session.user.id);
-  //       router.push(`/qa/${questionId}`);
-  //     } catch (error) {
-  //       router.push(`/qa/${questionId}`);
-  //     }
-  //   }
+      try {
+        // Increment the view count
+        await incrementQuestionView(questionId, session.user.id);
+        router.push(`/qa/${questionId}`);
+      } catch (error) {
+        router.push(`/qa/${questionId}`);
+      }
+    }
 
-  // };
+  };
 
   return (
     <div className="space-y-6 py-6">
@@ -101,7 +103,7 @@ export default function QuestionList({ session,questions,answers,subcategories,c
               
               <div className="flex-grow">
                 <h3 className="text-xl font-semibold text-green-900 dark:text-green-400 mb-2">
-                  {/* <Link href={`/qa/${question.id}`} onClick={(e) => session && handleQuestionClick(e, question.id)} className="hover:underline">{question.title}</Link> */}
+                  <Link href={`/qa/${question.id}`} onClick={(e) => session && handleQuestionClick(e, question.id)} className="hover:underline">{question.title}</Link>
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">{question.content}</p>
                 <div className="space-y-4">
