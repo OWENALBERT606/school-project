@@ -151,39 +151,39 @@ export const sidebarLinks: ISidebarLink[] = [
       },
     ],
   },
-  {
-    title: "Sales",
-    icon: CircleDollarSign,
-    dropdown: true,
-    href: "/dashboard/sales",
-    permission: "sales.read",
-    dropdownMenu: [
-      {
-        title: "Sales",
-        href: "/dashboard/sales",
-        permission: "sales.read",
-      },
-      {
-        title: "Customers",
-        href: "/dashboard/sales/customers",
-        permission: "customers.read",
-      },
-    ],
-  },
-  {
-    title: "Blogs",
-    icon: Book,
-    dropdown: false,
-    href: "/dashboard/blogs",
-    permission: "blogs.read",
-  },
-  {
-    title: "Orders",
-    href: "/dashboard/orders",
-    icon: BarChart2,
-    dropdown: false,
-    permission: "orders.read",
-  },
+  // {
+  //   title: "Sales",
+  //   icon: CircleDollarSign,
+  //   dropdown: true,
+  //   href: "/dashboard/sales",
+  //   permission: "sales.read",
+  //   dropdownMenu: [
+  //     {
+  //       title: "Sales",
+  //       href: "/dashboard/sales",
+  //       permission: "sales.read",
+  //     },
+  //     {
+  //       title: "Customers",
+  //       href: "/dashboard/sales/customers",
+  //       permission: "customers.read",
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "Blogs",
+  //   icon: Book,
+  //   dropdown: false,
+  //   href: "/dashboard/blogs",
+  //   permission: "blogs.read",
+  // },
+  // {
+  //   title: "Orders",
+  //   href: "/dashboard/orders",
+  //   icon: BarChart2,
+  //   dropdown: false,
+  //   permission: "orders.read",
+  // },
   {
     title: "Settings",
     href: "/dashboard/settings",
@@ -191,28 +191,28 @@ export const sidebarLinks: ISidebarLink[] = [
     dropdown: false,
     permission: "settings.read",
   },
-  {
-    title: "Reports",
-    icon: BarChart4,
-    dropdown: true,
-    href: "/dashboard/reports/products",
-    permission: "reports.read",
-    dropdownMenu: [
-      {
-        title: "Product Report",
-        href: "/dashboard/reports/products",
-        permission: "reports.read",
-      },
-      {
-        title: "Inventory Report",
-        href: "/dashboard/reports/inventory",
-        permission: "reports.read",
-      },
-      {
-        title: "Customers Report",
-        href: "/dashboard/reports/customers",
-        permission: "reports.read",
-      },
-    ],
-  },
+  // {
+  //   title: "Reports",
+  //   icon: BarChart4,
+  //   dropdown: true,
+  //   href: "/dashboard/reports/products",
+  //   permission: "reports.read",
+  //   dropdownMenu: [
+  //     {
+  //       title: "Product Report",
+  //       href: "/dashboard/reports/products",
+  //       permission: "reports.read",
+  //     },
+  //     {
+  //       title: "Inventory Report",
+  //       href: "/dashboard/reports/inventory",
+  //       permission: "reports.read",
+  //     },
+  //     {
+  //       title: "Customers Report",
+  //       href: "/dashboard/reports/customers",
+  //       permission: "reports.read",
+  //     },
+  //   ],
+  // },
 ];
