@@ -84,6 +84,7 @@ export default function QuestionList({ session,questions,answers,subcategories,c
   <SessionRedirectForm session={session} />
 ) : (
       <AlertDialog>
+        <AlertDialogTitle></AlertDialogTitle>
                     <AlertDialogTrigger asChild>
                       <Button variant="outline" className="bg-green-900 hover:bg-green-600 text-white">Post Question</Button>
                     </AlertDialogTrigger>
