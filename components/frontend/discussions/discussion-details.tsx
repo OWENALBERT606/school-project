@@ -109,13 +109,13 @@ export function DiscussionDetail({discussion,session,responses}:{discussion:any,
         <CardHeader className="p-6">
           <div className="flex items-start gap-4">
             <Avatar className="h-10 w-10 border">
-              <AvatarImage src={discussionData.author.avatar} alt={discussionData.author.name} />
-              <AvatarFallback>{discussionData.author.name.charAt(0)}</AvatarFallback>
+              <AvatarImage src={discussion.user.image} alt={discussionData.author.name} />
+              <AvatarFallback>{discussion.user.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <div className="space-y-1">
               <div className="flex items-center">
-                <span className="font-medium">{discussionData.author.name}</span>
-                <span className="text-muted-foreground text-xs ml-2">• {discussionData.date}</span>
+                <span className="font-medium">{discussion.user.name}</span>
+                <span className="text-muted-foreground text-xs ml-2">• {discussion.date}</span>
               </div>
               <h1 className="text-2xl font-bold">{discussion.title}</h1>
               <div className="flex flex-wrap gap-2">

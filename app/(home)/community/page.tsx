@@ -1,10 +1,9 @@
-// import { DiscussionList } from "@/components/discussion-list"
-// import { NewDiscussionForm } from "@/components/new-discussion-form"
-// import { CategoryFilters } from "@/components/category-filters"
+
 import { getAllCategories } from "@/actions/categories";
 import { getAllDiscussions } from "@/actions/discussions";
 import { getAllSubCategories } from "@/actions/subcategories";
 import { getAllTopics } from "@/actions/topics";
+import DiscussionFeed from "@/components/frontend/DiscussionFeed";
 import CommunityCategoryFilters from "@/components/frontend/discussions/categories-filters";
 import { CategoryFilters } from "@/components/frontend/discussions/category-filters"
 import { DiscussionList } from "@/components/frontend/discussions/discussion-list"
@@ -22,6 +21,7 @@ export default async function Page() {
      const topicsData: TopicProps[] = (await getAllTopics()) || [];
 
      const categories: Category[] = (await getAllCategories()) || [];
+    //  const session = await getServerSession(authOptions);
 
      const subcategories: SubCategory[] = (await getAllSubCategories()) || [];
     //  const sortedTopics = topicsData.sort((a, b) => 
@@ -47,9 +47,13 @@ export default async function Page() {
           <div className="lg:col-span-2">
             <NewDiscussionForm session={session} topics={topics}/>
             <div className="mt-8">
-              <RecentDiscussion discussions={discussions}/>
-              <CategoryFilters categories={categories} subcategories={subcategories} />
-              <DiscussionList discussions={discussions}  />
+              
+              <RecentDiscussion discussions={discussions} />
+<DiscussionFeed
+  discussions={discussions}
+  categories={categories}
+  subcategories={subcategories}
+/>
             </div>
           </div>
           <div className="hidden lg:block">

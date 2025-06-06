@@ -28,7 +28,9 @@ export async function getAllDiscussions() {
       },
       include:{
         responses:true,
-        user:true
+        user:true,
+        category:true,
+        subcategory:true
       }
     });
 
@@ -60,7 +62,9 @@ export async function getDiscussionById(id: string) {
       },
     include:{
       user:true,
-      responses:true
+      responses:true,
+      category:true,
+      subcategory:true
     }
     });
     return discussion;

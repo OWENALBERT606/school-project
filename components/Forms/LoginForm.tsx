@@ -49,7 +49,7 @@ export default function LoginForm() {
         setLoading(false);
         toast.success("Login Successful");
         setPassErr("");
-        router.push(returnUrl);
+        router.push("/dashboard");
       }
     } catch (error) {
       setLoading(false);

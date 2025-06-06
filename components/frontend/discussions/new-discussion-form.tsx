@@ -77,6 +77,9 @@ export function NewDiscussionForm({
 
 async function saveData(data: DiscussionProps) {
     try {
+      if (!session) {
+            toast.error("Please login first");
+            router.push("/login");}
       setLoading(true);
       data.userId=session?.user.id
       data.topicId=selectedTopic.value
@@ -126,7 +129,18 @@ async function saveData(data: DiscussionProps) {
             </Avatar> */}
             <div className="flex-1 space-y-3">
               {!isExpanded ? (
-                <Input placeholder="What's on your mind about farming today?" onFocus={() => setIsExpanded(true)} />
+                <Input
+  placeholder="What's on your mind about farming today?"
+  onFocus={() => {
+    if (session?.user) {
+      setIsExpanded(true);
+    } else {
+      toast.error("Please log in to start a discussion");
+      router.push("/login")
+    }
+  }}
+/>
+
               ) : (
                 <>
                     <Card>
