@@ -26,6 +26,7 @@ import Link from "next/link";
 import { deleteUser } from "@/actions/users";
 import { deleteSubCategory } from "@/actions/subcategories";
 import { deleteCategory } from "@/actions/categories";
+import { deleteArticle } from "@/actions/article";
 
 type ActionColumnProps = {
   row: any;
@@ -51,6 +52,12 @@ export default function ActionColumn({
         toast.success(`${model} Deleted Successfully`);
       } else if (model === "user") {
         const res = await deleteUser(id);
+        if (res?.ok) {
+          window.location.reload();
+        }
+        toast.success(`${model} Deleted Successfully`);
+      }else if (model === "article") {
+        const res = await deleteArticle(id);
         if (res?.ok) {
           window.location.reload();
         }
