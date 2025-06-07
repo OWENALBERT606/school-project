@@ -88,7 +88,7 @@ export default function ArticleForm({
         console.log(data)
         //reset
         reset();
-        // router.push("/dashboard/articles");
+        router.push("/dashboard/articles");
       }
     } catch (error) {
       setLoading(false);
@@ -143,7 +143,7 @@ export default function ArticleForm({
               />
                   <FormSelectInput
                 label="Sub Category"
-                options={categories}
+                options={subcategories}
                 option={selectedSubCategory}
                 setOption={setSelectedSubCategory}
                 toolTipText="Add New Sub Category"
