@@ -63,33 +63,6 @@ To get this:
 
 ### Authentication Providers
 
-#### GitHub OAuth
-
-1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
-2. Create a new OAuth App
-3. Set homepage URL to `http://localhost:3000`
-4. Set callback URL to `http://localhost:3000/api/auth/callback/github`
-5. Copy credentials and add to `.env`:
-
-```env
-GITHUB_CLIENT_ID="your_client_id"
-GITHUB_SECRET="your_client_secret"
-```
-
-#### Google OAuth
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Create a new project
-3. Enable OAuth 2.0
-4. Configure OAuth consent screen
-5. Create credentials (OAuth client ID)
-6. Set authorized redirect URI to `http://localhost:3000/api/auth/callback/google`
-7. Add to `.env`:
-
-```env
-GOOGLE_CLIENT_ID="your_client_id"
-GOOGLE_CLIENT_SECRET="your_client_secret"
-```
 
 ### NextAuth Configuration
 
@@ -200,10 +173,7 @@ The system includes permissions for:
 - Dashboard management
 - User management
 - Role management
-- Sales and orders
-- Inventory management
-- Settings and configurations
-- Reports and analytics
+
 
 Each module has these permission types:
 
@@ -222,12 +192,6 @@ Example: `users.create`, `users.read`, etc.
 4. Keep permissions consistent with the schema
 5. Test both authenticated and unauthenticated states
 
-## Common Issues
-
-1. Database connection issues:
-
-   - Check if your DATABASE_URL is correct
-   - Ensure your IP is allowed in Neon DB
 
 2. Authentication issues:
 
@@ -239,13 +203,3 @@ Example: `users.create`, `users.read`, etc.
    - Check user role assignments
    - Verify permission strings match exactly
 
-## Contributing
-
-1. Create a feature branch
-2. Make changes
-3. Write tests
-4. Submit PR
-
-## License
-
-MIT
