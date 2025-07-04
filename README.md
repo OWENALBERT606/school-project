@@ -202,4 +202,155 @@ Example: `users.create`, `users.read`, etc.
    - Run database seed
    - Check user role assignments
    - Verify permission strings match exactly
+     
+  USER GUIDE
+  
+🧑 User Accounts
+✅ Registration
+Sign up using your email and phone number.
+
+Verify your email address after registration.
+
+Set your name, job title, and profile image in the Profile Settings.
+
+🔐 Login
+Login using your email and password or through linked social accounts.
+
+You’ll remain signed in using secure session tokens.
+
+👤 User Roles
+Users can have one or more roles:
+
+USER – Ask questions, post answers, comment, and like content.
+
+ADMIN – Manage users, content, and categories.
+
+SERVICE_PROVIDER – Experts who provide verified answers and content.
+
+Roles can have different permissions like profile.update, orders.read, or dashboard.read.
+
+📚 Categories & Subcategories
+The platform is organized around Categories like:
+
+Crop Farming
+
+Animal Husbandry
+
+Market Insights
+
+Each category can have several Subcategories (e.g., Maize Farming under Crop Farming).
+
+Your preferences help personalize content shown on the homepage.
+
+❓ Asking Questions
+Navigate to the Ask a Question page.
+
+Choose a Category and Subcategory.
+
+Add a title and a detailed description.
+
+Questions are visible to all users and searchable.
+
+You can star questions to bookmark them.
+
+💬 Answers & Voting
+Answer questions by clicking "Answer".
+
+Answers can be upvoted or downvoted by others.
+
+The best answers rise to the top based on votes.
+
+Each user can only vote once per answer.
+
+📄 Articles
+Experts or advanced users can post Articles with attachments.
+
+Articles belong to categories/subcategories.
+
+They can be liked/disliked and commented on.
+
+Articles include reading time and author details.
+
+💭 Discussions
+Create or join discussions on specific Topics.
+
+Discussions are grouped by category/subcategory.
+
+You can attach files (e.g., PDFs, images) and post responses.
+
+Use this section for open conversations or deep dives into agricultural trends.
+
+📝 Comments & Responses
+Articles support Comments.
+
+Discussions support Responses.
+
+You can like/dislike responses and comments.
+
+🏷️ Topics
+Topics group discussions under themes like:
+
+"Organic Pest Control"
+
+"Climate-smart Agriculture"
+
+Only registered users can create or follow topics.
+
+📊 Blogs
+Admins and verified authors can publish Blogs:
+
+Includes title, slug, description, image, and full content.
+
+Blogs belong to BlogCategories.
+
+Featured or published blogs appear on the home page.
+
+❤️ Preferences
+Users can set preferred:
+
+Categories
+
+Subcategories
+
+This helps customize the dashboard experience with relevant articles, discussions, and questions.
+
+🛡️ Admin Features
+Admins can:
+
+Manage users, roles, and permissions.
+
+Approve or deactivate content.
+
+Create/edit categories and subcategories.
+
+View statistics on views, likes, votes, etc.
+
+📈 Engagement & Metrics
+The system tracks:
+
+Views for questions (QuestionView)
+
+Likes/dislikes for answers, articles, and discussions
+
+Votes (UP/DOWN) for answers
+
+Responses in discussions
+
+🧩 Data Integrity
+All user-generated content is:
+
+Linked to verified users.
+
+Soft-deletable via status flags (isActive, isVerified, etc.).
+
+Indexed for performance.
+
+📅 Timestamps
+All records include:
+
+createdAt (record creation time)
+
+updatedAt (last modified time)
+
+This helps maintain data freshness and ordering.
 
